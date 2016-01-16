@@ -77,7 +77,7 @@ $(function(){
             // create your image at top row
             var a = document.createElement('a'); a.id = response.name; a.href = '#map';
             var img = document.createElement('img'); img.src = imgurl; img.className = 'img-circle';
-            img.title = '查看自己位置'; img.id = 'myphoto';
+            img.title = '查看自己位置'; img.id = 'myphoto'; 
             img.addEventListener('click', function() {
                 console.log("click me");
                 clickme();
@@ -105,7 +105,7 @@ $(function(){
             a.href = '#map';
             var kyloUrl = '/chatJsFile/kyloren2.jpg';
             var img = document.createElement('img'); img.src = kyloUrl; img.className = 'img-circle';
-            img.title = "使用原力查看所有人位置"; img.id ='Force';
+            img.title = "使用原力查看所有人位置"; img.id ='Force'; img.style.marginLeft="15px";
             img.addEventListener('click', function() {
                 Force();
             });

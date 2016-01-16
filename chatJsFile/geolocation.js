@@ -261,7 +261,7 @@ function setOtherPosition(people){
         a.href = '#map';
         var userImgUrl = 'https://graph.facebook.com/' + people[3] + '/picture?width=75&height=75';
         var img = document.createElement('img'); img.src = userImgUrl; img.className = 'img-circle';
-        img.id = people[0]; a.appendChild(img); img.title = people[0];
+        img.id = people[0]; a.appendChild(img); img.title = people[0]; img.style.marginLeft="15px";
         document.getElementById("fbImg").appendChild(a); 
         document.getElementById(people[0]).addEventListener('click', function () {
             console.log("map to " + people[0]);
