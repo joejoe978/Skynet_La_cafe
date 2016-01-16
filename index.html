@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #googleMap {
+        height: 100%;
+      }
+      #markerLayer img{
+        border-radius: 25px;
+        /*border:1px solid #000 !important;*/
+      }
+      #fbImg {
+        /*margin-right: 20px;*/
+        display: inline-block;
+        float: none; /* Very important */
+      }
+      /*#doorModal .modal-dialog{
+        max-height: 800px;
+        max-width: 1000px;
+        /*margin-left: 500px;
+      }*/
+      .modal.large {
+          width: 80%; /* respsonsive width */
+          margin-left:-40%; /* width/2) */
+      }
+      #Force{
+        width:75px;
+        height:75px;
+      }
+      #scrollimg{
+        overflow-x: auto;
+        white-space: nowrap
+      }
+
+      .controls {
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 50%;
+      }
+
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 55%;
+        z-index: 5;
+        background-color: #fff;
+        border: 0px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        text-align: center;
+      }
+
+      #mapDrop{
+        position: absolute;
+        top: 10px;
+        left: 75%;
+        z-index: 5;
+        text-align: center;
+        /*font-family: 'Roboto','sans-serif';*/
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+
+      #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+      }
+
+      #type-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #text-panel{
+        position: absolute;
+        top: 7px;
+        left: 55%;
+        /*background-color:black; */
+        color:red;
+        text-align: center;
+        z-index: 5;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+      }
+      .hidden {
+        display:none;
+      }
+      #credits{
+        margin-top: 15%
+      }
+    </style>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Skynet 天網</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/agency.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="chatJsFile/fbchat.js"></script>
+    <script type="text/javascript" src="chatJsFile/geolocation.js"></script>
+
+</head>
+
+<body id="page-top" class="index">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+            <a class="navbar-brand page-scroll" href="#page-top">Home</a>
+            <!-- <ul class="nav navbar-nav">
+                <li>
+                    <p class="navbar-btn">
+                        <a href="#" class="btn">Chat</a>
+                    </p>
+                </li>
+            </ul> -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                    <i class="fa fa-comment fa-3x toggle visible-xs" href="#credits" id="chatclick"></i>
+
+                <!-- <a class="btn" id="fbLogin" >登入FB</a> -->
+            </div>
+
+            <!-- <div class="navbar-nav navbar-right"> -->
+
+            <!-- </div> -->
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll hidden-xs" href="#about0">序曲</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll hidden-xs" href="#portfolio">介紹</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#map" id="openSky0">使用天網</a>
+                    </li>
+                    <!-- <li>
+                        <a class="show_hide page-scroll" href="#phonechat">原力 Chat</a>
+                    </li> -->
+                    <!-- <li>
+                        <a class="visible-xs" href="#phonechatModal" class="portfolio-link" data-toggle="modal">原力 Chat</a>
+                    </li> -->
+                    <li>
+                        <a class="page-scroll" href="#team">開發團隊</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">聯絡我們</a>
+                    </li>
+                    <li> &nbsp&nbsp&nbsp&nbsp</li>
+                    <li id='topImg'></li>
+                    <li id='username'></li>
+                    <li>
+                        <a class="btn" id="fbLogin" >登入FB</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+
+<!-- chatroom slidedown test -->
+<div id="credits" class="hidden">
+    <div class="container-fluid">
+    <div class="col-xs-12">
+        <div id='chatphone' style="width:100%; height:300px ; overflow:auto; line-height:30px;"></div>
+        </br>
+        <form id='send-messagephone'>
+          <div class="input-group">
+            <input type="text" class="form-control" id='messagephone' placeholder="請輸入聊天訊息...">
+            <span class="input-group-btn">
+               <button type="submit" class="btn btn-default">送出</button>
+            </span>
+          </div>
+        </form>
+
+    <!-- chatroom people hidden at phone-->
+    <div class = "col-xs-12">
+        線上名單:
+        <div id="usersphone" style="height:auto; overflow:auto;"></div>
+    </div>
+</div>
+</div>
+</div>
+
+    <!-- Header -->
+    <header>
+
+        <div class="container">
+            <div class="intro-text">
+                </br></br></br></br>
+                <div class="intro-lead-in">Welcome to Skynet</div>
+                </br></br></br></br></br>
+                <a href="#about0" class="page-scroll btn btn-xl hidden-xs">Start</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Pre Section 0 -->
+    <section id="about0" class="hidden-xs">
+        <div class="container">
+            <div class="row" style="margin-top:0px;">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading" >你曾經因為goole map標錯而迷路嗎？</h2>
+                    <img src="chatJsFile/about0.jpeg" style="height:310px;">
+                </div>
+            </div>
+                <div class="col-lg-12 text-center">
+                    </br>
+                    <a href="#about1" class="page-scroll btn btn-xl">繼續</a>
+                </div>
+        </div>
+    </section>
+
+    <!-- Pre Section 1 -->
+    <section id="about1" class="hidden-xs">
+            <div class="row" style="margin-top:0px;">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading" >你偶而會想查看朋友們現在身處何方嗎？</h2>
+                    <img src="chatJsFile/about1.jpg" style="height:310px;">
+                </div>
+            </div>
+                <div class="col-lg-12 text-center">
+                    </br>
+                    <a href="#about2" class="page-scroll btn btn-xl">繼續</a>
+                </div>
+        </div>
+    </section>
+
+    <!-- Pre Section 2 -->
+    <section id="about2" class="hidden-xs">
+        <div class="container">
+            <div class="row" style="margin-top:0px;">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading" >你渴望一個與朋友或家人們聊天的平台嗎？</h2>
+                    <img src="chatJsFile/about2.jpg" style="height:310px;">
+                </div>
+            </div>
+                <div class="col-lg-12 text-center">
+                    </br>
+                    <a href="#about3" class="page-scroll btn btn-xl">繼續</a>
+                </div>
+        </div>
+    </section>
+
+    <!-- Pre Section 3 -->
+    <section id="about3" class="hidden-xs">
+        <div class="container">
+            <div class="row" style="margin-top:0px;">
+                <div class="col-md-12 text-center">
+                    <h2 class="section-heading" >那麼，不仿來認識一下天網！</h2>
+                    <img src="chatJsFile/skynet3.jpg" style="height:310px;"></br></br></br>
+
+                    <div class="col-sm-5 col-md-5 text-right">
+                        <!-- <button type="button" class="btn btn-primary" >認識天網</button> -->
+                        <a href="#portfolio" class="page-scroll btn btn-xl">認識天網</a>
+                    </div>
+                    <div class="col-sm-2 col-md-2 text-center">
+                        <h3 class="section-heading" >或是</h3>
+                    </div>
+                    <div class="col-sm-5 col-md-5 text-left">
+                        <!-- <button type="button" class="btn btn-primary" >直接進入天網</button> -->
+                        <a href="#map" class="page-scroll btn btn-xl">直接進入天網</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduce Section1 -->
+    <section id="portfolio" class="bg-light-gray hidden-xs">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">功能介紹</h2>
+                    <p class="section-subheading text-muted">天網是一個可在電腦或手機操作的網站，是您約會不可獲缺的好夥伴，更是您聯絡感情的好幫手。</br>
+                    </p>
+                </div>
+            </div></br>
+            <!-- 3 grpah -->
+            <div class="row">
+                <div class="col-md-4 col-sm-4 portfolio-item">
+                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/room1.jpg" class="img-responsive" style="max-width:100%; max-height:100%;">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>即時顯示所有人座標</h4>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4 portfolio-item">
+                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/room2.jpg" class="img-responsive" style="max-width:100%; max-height:100%;">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>新增、刪除集合點</h4>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4 portfolio-item">
+                    <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/room3.jpg" class="img-responsive" style="max-width:100%; max-height:100%;">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>多人線上聊天</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center" style="margin-top:-20px;">
+                    <ul class="list-inline social-buttons">
+                        <li><a href="#portfolio2" class="page-scroll">
+                               <!-- go -->
+                               <i class="fa fa-arrow-down"></i>
+                           </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduce Section2 -->
+    <section id="portfolio2" class="bg-light-gray hidden-xs">
+        <div class="container">
+            <div class="row text-center">
+                <h2 class="section-heading">製作工具</h2></br>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Front-end</h4>
+                    <p class="text-muted">使用Javascript、HTML5來處理前端任務，
+                    </br> 搭配：google map API, facebook API, Ajax。
+                    </br> 使用Bootstrap3網頁互動特效和佈景主題。</p>
+                </div>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-cloud fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Back-end</h4>
+                    <p class="text-muted">以Node.js架設server處理後端任務。 </br>
+                        使用mongoDB儲存資料，如：使用者資訊、定位紀錄。</p>
+                </div>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-mobile-phone fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Figures</h4>
+                    <p class="text-muted">Bootstrap3響應式網頁</br>
+                    不論是電腦、手機、平板...等終端裝置皆能使用天網。</br>
+                    Socket.io溝通前後端，訊息即時傳遞。
+
+                </div>
+            </div>
+            <div class="col-lg-12 text-center">
+                <h3 class="section-heading">介紹了這麼多，準備好進入天網了嗎？</h3></br>
+                <a href="#map" class="page-scroll btn btn-xl">進入天網</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- google map -->
+    <section id="map">
+        <div class="container-fluid">
+
+            <div class="row" id="top" style="overflow-x:scroll; margin-top:-50px;">
+              <div id="scrollimg"><div id="fbImg" class = "col-xs-12 col-md-12"></div></div>
+
+              <!-- <div class = "col-md-10" id="scrollimg">
+                <div id="allfbImg"></div>
+              </div> -->
+
+            </div></br>
+
+            <div class="row" style="margin-top:-10px;">
+            <!-- google map -->
+            <div class = "col-xs-12 col-md-8">
+              <input id="pac-input" class="controls" type="text" placeholder="搜尋地點...">
+              <div id="text-panel"></div>
+              <div id="floating-panel">
+                <button class="btn btn-danger" type="button" onclick="createPlace();" >建立</button>
+              </div>
+
+              <div class="dropdown" id="mapDrop">
+                  <button class="btn btn-success dropdown-toggle" type="button" id="placeButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    查看<span class="caret"></span></button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="dropList" style="height:350px; overflow:auto;">
+                    <!-- <li><a href="#" >測試1</a><li> -->
+                  </ul>
+              </div>
+
+
+               <!--the map -->
+               <div style="height:440px; width:100%;">
+                  <div id="googleMap"></div>
+
+                  <script type="text/javascript">
+                    var map; var userMarker; var insertName=0; var mypos = []; //store my position
+                    var markersName = [], allMarkers =[]; // Name already in map, Marker already in map
+                    var existWindows = []; // for infoWindow
+                    var placeMarkers = [], localPlaceName = []; // store my places, places name
+                    var originalNo = 0; var placeNo = 0; var mapListener; // for map click event
+                    var addLocation ; // store user click place to modal
+                    var worldPlaceName = [], worldMarkers = []; // store all place name, markers
+                    var deletePlaceName = [] ; // store delete markers
+                    var allPeopleLoc = [], forceAwaken = 0; // use for the Force
+
+                    var myInterval = setInterval(function updateLocation(){
+                        console.log("Not login yet, waiting...");
+                        if(isLogin == 1){
+                            $("#doorModal").modal('show');
+                            clearInterval(myInterval);
+
+                            if (navigator.geolocation) {
+                                navigator.geolocation.getCurrentPosition(displayAndWatch, locError);
+                            } else {
+                                alert("Your browser does not support the Geolocation API");
+                            }
+
+                            setInterval(function(){
+                                updateAll();
+                                updatePlace();
+                                //updateDelete();
+                                // 捲軸問題
+                                 // var a = document.createElement('a');
+                                 // a.href = '#';
+                                 // var userImgUrl = 'https://graph.facebook.com/' + 100000308469892 + '/picture?width=75&height=75';
+                                 // var img = document.createElement('img'); img.src = userImgUrl; img.className = 'img-circle';
+                                 // a.appendChild(img);
+                                 // document.getElementById("fbImg").appendChild(a);
+
+                                 // a = document.createElement('a');
+                                 // a.href = '#';
+                                 // userImgUrl = 'https://graph.facebook.com/' + 100000205309181 + '/picture?width=75&height=75';
+                                 // img = document.createElement('img'); img.src = userImgUrl; img.className = 'img-circle';
+                                 // a.appendChild(img);
+                                 // document.getElementById("fbImg").appendChild(a);
+
+                            }, 3 * 1000);
+                          }
+                    }, 1 * 1000);
+
+                  </script>
+
+                  <script async defer
+                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvcH4Wm9pc-8-uYvanzsfbCFCutlGsjuI&libraries=places&callback=initMap"></script>
+               </div>
+               <!-- dropdown div -->
+            </div>
+            <!-- chatroom hidden at phone-->
+
+            <div class = "hidden-xs col-md-3" id="content">
+                <div id='chat' style="width:100%; height:385px ; overflow:auto; line-height:30px;"></div>
+                </br>
+                <form id='send-message'>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id='message' placeholder="請輸入聊天訊息...">
+                    <span class="input-group-btn">
+                       <button type="submit" class="btn btn-default">送出</button>
+                    </span>
+                  </div>
+                </form>
+            </div>
+
+            <!-- chatroom people hidden at phone-->
+            <div class = "hidden-xs col-md-1">
+                線上名單:
+                <div id="users" style="height:385px; overflow:auto;"></div>
+            </div>
+
+        </div>
+    </div>
+
+	</section>
+<!-- Team Section -->
+    <section id="team" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">開發團隊</h2>
+                    <h3 class="section-subheading text-muted">INRG LAB @ NTU</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="team-member">
+                        <img src="img/team/mh.jpg" class="img-responsive img-circle" style="height:200px; width:200px;" alt="">
+                        <h4>楊孟翰 (M.H.Yang)</h4>
+                        <p class="text-muted">r03922120@ntu.edu.tw</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a href="https://www.facebook.com/YungMH"><i class="fa fa-facebook"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="team-member">
+                        <img src="img/team/joe.jpg" class="img-responsive img-circle" style="height:200px; width:200px;" alt="">
+                        <h4>黃子軒 (Joe Huang)</h4>
+                        <p class="text-muted">r03922133@ntu.edu.tw</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a href="https://www.facebook.com/100001315253713"><i class="fa fa-facebook"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <p class="large text-muted">Feel free to email us to provide some feedback on our web
+                        application, give us suggestions for new ideas or bugs, or to just say hello! </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">聯絡我們</h2>
+                    <h3 class="section-subheading text-muted">留下您寶貴的意見給我們參考與改進</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <form name="sentMessage" id="contactForm" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="姓名" id="name" required data-validation-required-message="Please enter your name.">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="電子郵件" id="email" required data-validation-required-message="Please enter your email address.">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" class="form-control" placeholder="手機" id="phone" required data-validation-required-message="Please enter your phone number.">
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <textarea class="form-control" placeholder="想說的話" id="message" required data-validation-required-message="Please enter a message."></textarea>
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-lg-12 text-center">
+                                <div id="success"></div>
+                                <button type="submit" class="btn btn-xl">傳送訊息</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class=" col-xs-12 col-md-12">
+                    <span class="copyright">Copyright &copy; Final Project of Intelligent Devices and Cloud Computing @ NTU</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Portfolio Modal 1 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true" >
+        <div class="modal-content" style="height:750px;">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl"></div>
+                </div>
+            </div>
+            <div class="container" style="margin-top:-50px;">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <h2>即時顯示所有人座標</h2>
+                            <p class="item-intro text-muted">不論朋友身在何方，都能輕易掌握你我最新位置！</p>
+                            <img class="img-responsive img-centered" src="chatJsFile/modal1.png" alt=""  style="height:380px;">
+                            <p>只要使用者登入facebook，即可查看所有登入用戶的最新位置！</br>
+                            座標也會保存於資料庫中，使用者下線也能讓朋友們知道他的最後位置。</p>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i>關閉視窗</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Modal 2 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content" style="height:650px;">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="margin-top:-50px;">
+                <div class="row">
+                    <!-- <div class="col-md-8 col-md-offset-2"> -->
+                        <div class="modal-body">
+                            <h2>新增、刪除集合點</h2>
+                            <p class="item-intro text-muted">用戶能自行建立集合地點，約會不再迷路！</p>
+
+                            <div class="row">
+                                <div class="col-md-6 ">
+                                    <img src="chatJsFile/modal2.png" alt="" style="height:300px">
+                                    <p>按下“建立”按鈕進入建立模式，再點選任意處即可建立。</p>
+                                </div>
+
+                                <div class="col-md-6 ">
+                                    <img src="chatJsFile/modal4.png" alt="" style="height:300px">
+                                    <p>點選"查看"，即可顯示所有人創過的集合點。</p>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> 關閉視窗</button>
+                        </div>
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Modal 3 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content" style="height:700px;">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="margin-top:-50px;">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>多人線上聊天</h2>
+                            <p class="item-intro text-muted">連接你我零距離！遠距離朋友們可談天話地，約會者也能即時聯絡！</p>
+
+                            <img src="chatJsFile/modal3.png" alt="" style="height:360px">
+                            <p>拉開聊天室，即可與朋友們立即對話。</p>
+
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> 關閉視窗</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- sky open modal -->
+    <div id="openSkyModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <!-- width:1000px; margin-left:-200px;  -->
+            <div class="modal-content" style="margin-top:40px; width:120%; margin-left:-10%;"  >
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="modalTitle" style="text-align:center;">歡迎來到天網！&nbsp;&nbsp;&nbsp;&nbsp; </br> 請先登入FB使用原力！&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-danger" id="fbLogin2" >登入FB</a> </h4>
+              </div>
+                <img id="opening" src="chatJsFile/kyloren4.jpg" style="width:100%; height:100%"></img>
+            </div>
+          </div>
+    </div>
+
+    <!-- add marker Modal -->
+    <div id="createModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" id="modalTitle">建立集合地點</h4>
+          </div>
+          <div class="modal-body" id="modal-body">
+              <textarea id="placeName" placeholder="輸入地點名稱或備註..." style="width:100%;"></textarea>
+          </div>
+          <div class="modal-footer" id="exit-modal">
+             <button type="button" class="btn btn-default" data-dismiss="modal"
+             onclick="addMarker(addLocation)">完成</button>
+             <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- doorModal -->
+    <div id="doorModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" id="modalTitle">計算您的位置中，請稍候！</h4>
+          </div>
+          <img id="waiting" src="chatJsFile/waiting2.png" style="width:100%; height:100%"></img>
+          <div class="modal-footer" id="exit-modal">
+             <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script >
+        $(window).load(function(){
+            $('#openSkyModal').modal('show');
+            $('#openSkyModal').on('show.bs.modal', function () {
+                $('.modal-content').css('width',$( window ).width()*0.8);
+            });
+        });
+    </script>
+    <script>
+$(function () {
+    $('#chatclick').click(function (event) {
+        event.preventDefault();
+        var target = $(this).attr('href');
+        $(target).toggleClass('hidden show');
+        $(window).scrollTop(0);
+    });
+
+});
+    </script>
+    <script src="js/jquery.js">
+    </script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="js/classie.js"></script>
+    <script src="js/cbpAnimatedHeader.js"></script>
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="js/agency.js"></script>
+</body>
+
+</html>
