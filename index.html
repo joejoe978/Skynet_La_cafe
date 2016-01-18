@@ -19,12 +19,9 @@
         /*margin-right: 20px;*/
         display: inline-block;
         float: none; /* Very important */
+        overflow-x: auto;
+        white-space: nowrap
       }
-      /*#doorModal .modal-dialog{
-        max-height: 800px;
-        max-width: 1000px;
-        /*margin-left: 500px;
-      }*/
       .modal.large {
           width: 80%; /* respsonsive width */
           margin-left:-40%; /* width/2) */
@@ -32,10 +29,6 @@
       #Force{
         width:75px;
         height:75px;
-      }
-      #scrollimg{
-        overflow-x: auto;
-        white-space: nowrap
       }
 
       .controls {
@@ -218,30 +211,29 @@
         <!-- /.container-fluid -->
     </nav>
 
+    <!-- chatroom slidedown test -->
+    <div id="credits" class="hidden">
+        <div class="container-fluid">
+        <div class="col-xs-12">
+            <div id='chatphone' style="width:100%; height:300px ; overflow:auto; line-height:30px;"></div>
+            </br>
+            <form id='send-messagephone'>
+              <div class="input-group">
+                <input type="text" class="form-control" id='messagephone' placeholder="請輸入聊天訊息...">
+                <span class="input-group-btn">
+                   <button type="submit" class="btn btn-default">送出</button>
+                </span>
+              </div>
+            </form>
 
-<!-- chatroom slidedown test -->
-<div id="credits" class="hidden">
-    <div class="container-fluid">
-    <div class="col-xs-12">
-        <div id='chatphone' style="width:100%; height:300px ; overflow:auto; line-height:30px;"></div>
-        </br>
-        <form id='send-messagephone'>
-          <div class="input-group">
-            <input type="text" class="form-control" id='messagephone' placeholder="請輸入聊天訊息...">
-            <span class="input-group-btn">
-               <button type="submit" class="btn btn-default">送出</button>
-            </span>
-          </div>
-        </form>
-
-    <!-- chatroom people hidden at phone-->
-    <div class = "col-xs-12">
-        線上名單:
-        <div id="usersphone" style="height:auto; overflow:auto;"></div>
+        <!-- chatroom people hidden at phone-->
+        <div class = "col-xs-12">
+            線上名單:
+            <div id="usersphone" style="height:auto; overflow:auto;"></div>
+        </div>
+        </div>
+        </div>
     </div>
-</div>
-</div>
-</div>
 
     <!-- Header -->
     <header>
@@ -442,13 +434,8 @@
     <section id="map">
         <div class="container-fluid">
 
-            <div class="row" id="top" style="overflow-x:scroll; margin-top:-50px;">
-              <div id="scrollimg"><div id="fbImg" class = "col-xs-12 col-md-12"></div></div>
-
-              <!-- <div class = "col-md-10" id="scrollimg">
-                <div id="allfbImg"></div>
-              </div> -->
-
+            <div class="row" id="top" style="margin-top:-50px;">
+              <div id="fbImg" class = "col-xs-12 col-md-12"></div>
             </div></br>
 
             <div class="row" style="margin-top:-10px;">
@@ -548,10 +535,10 @@
             </div>
 
         </div>
-    </div>
-
+        </div>
 	</section>
-<!-- Team Section -->
+
+    <!-- Team Section -->
     <section id="team" class="bg-light-gray">
         <div class="container">
             <div class="row">
@@ -799,17 +786,18 @@
             });
         });
     </script>
-    <script>
-$(function () {
-    $('#chatclick').click(function (event) {
-        event.preventDefault();
-        var target = $(this).attr('href');
-        $(target).toggleClass('hidden show');
-        $(window).scrollTop(0);
-    });
 
-});
+    <script>
+        $(function () {
+            $('#chatclick').click(function (event) {
+                event.preventDefault();
+                var target = $(this).attr('href');
+                $(target).toggleClass('hidden show');
+                $(window).scrollTop(0);
+            });
+        });
     </script>
+
     <script src="js/jquery.js">
     </script>
     <!-- Bootstrap Core JavaScript -->
