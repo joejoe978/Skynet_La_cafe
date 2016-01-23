@@ -181,6 +181,7 @@ $(function(){
         if($boxMessage.val() != ''){
             socket.emit('send message', $boxMessage.val().trim());
             $boxMessage.val('');
+            $chat.animate({scrollTop: chat.scrollHeight});
         }
     });
     // phonemessage
@@ -189,6 +190,7 @@ $(function(){
         if($boxMessagephone.val() != ''){
             socket.emit('send message', $boxMessagephone.val().trim());
             $boxMessagephone.val('');
+            $chatphone.animate({scrollTop: chatphone.scrollHeight});
         }
     });
     function chatClick(name){

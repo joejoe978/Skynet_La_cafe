@@ -73,6 +73,11 @@
         text-align: center;
         /*font-family: 'Roboto','sans-serif';*/
       }
+      #dropList{
+        min-width: 15px; 
+        /*max-width: 20px; */
+        margin-left: -10px;
+      }
 
       #pac-input:focus {
         border-color: #4d90fe;
@@ -148,28 +153,18 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
-            <a class="navbar-brand page-scroll" href="#page-top">Home</a>
-            <!-- <ul class="nav navbar-nav">
-                <li>
-                    <p class="navbar-btn">
-                        <a href="#" class="btn">Chat</a>
-                    </p>
-                </li>
-            </ul> -->
+                <a class="navbar-brand page-scroll" href="#page-top">Home</a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                    <i class="fa fa-comment fa-3x toggle visible-xs" href="#credits" id="chatclick"></i>
 
-                <!-- <a class="btn" id="fbLogin" >登入FB</a> -->
+                <i class="fa fa-comment-o fa-3x" id="chatclick" style="color:white;"></i> 
+                <!-- <i class="fa fa-comment-o" id="chatclick"></i> -->
+                <!-- <a class="fa fa-comment fa-3x toggle visible-xs" id="chatclick">chat</a> -->
             </div>
-
-            <!-- <div class="navbar-nav navbar-right"> -->
-
-            <!-- </div> -->
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -209,13 +204,40 @@
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
+        
+        <!--phone chatroom -->
+        <div id="topChat" class="container-fluid" style="background-color: white;">
+          <div id="usersList" class ="col-xs-12 hidden">
+            線上名單:
+            <div id="usersphone" style="overflow:auto;"></div>
+          </div>
+
+          <div id="topChat2" class="col-xs-12 hidden">
+            <div id='chatphone' style="width:100%; height:0px; overflow:auto; line-height:30px;"></div>
+            </br>
+            <form id='send-messagephone'>
+              <div id="myform" class="input-group">
+                <input type="text" class="form-control" id='messagephone' placeholder="請輸入聊天訊息...">
+                <span class="input-group-btn">
+                   <button type="submit" class="btn btn-default">送出</button>
+                </span>
+              </div>
+            </form>     
+          </div>
+        </div>
+
     </nav>
 
-    <!-- chatroom slidedown test -->
-    <div id="credits" class="hidden">
-        <div class="container-fluid">
-        <div class="col-xs-12">
-            <div id='chatphone' style="width:100%; height:300px ; overflow:auto; line-height:30px;"></div>
+    <!-- chatroom slidedown test class="hidden" style="height:350px;" -->
+    <!-- <div id="credits" style="height:0px;"> -->
+        <!-- <div class="container-fluid" style="height:300px;">
+          <div class = "col-xs-12">
+            線上名單:
+            <div id="usersphone" style="overflow:auto;"></div>
+          </div>
+
+          <div class="col-xs-12">
+            <div id='chatphone' style="width:100%; height:auto ; overflow:auto; line-height:30px;"></div>
             </br>
             <form id='send-messagephone'>
               <div class="input-group">
@@ -224,16 +246,10 @@
                    <button type="submit" class="btn btn-default">送出</button>
                 </span>
               </div>
-            </form>
-
-        <!-- chatroom people hidden at phone-->
-        <div class = "col-xs-12">
-            線上名單:
-            <div id="usersphone" style="height:auto; overflow:auto;"></div>
-        </div>
-        </div>
-        </div>
-    </div>
+            </form>     
+          </div>
+        </div> -->
+    <!-- </div> -->
 
     <!-- Header -->
     <header>
@@ -456,7 +472,7 @@
               </div>
 
 
-               <!--the map -->
+               <!--the map --> 
                <div style="height:440px; width:100%;">
                   <div id="googleMap"></div>
 
@@ -789,11 +805,21 @@
 
     <script>
         $(function () {
+            var open = 0;
             $('#chatclick').click(function (event) {
                 event.preventDefault();
-                var target = $(this).attr('href');
-                $(target).toggleClass('hidden show');
-                $(window).scrollTop(0);
+                if(open == 0){
+                    $("#usersList").toggleClass('hidden show');
+                    $("#topChat2").toggleClass('hidden show');
+                    $("#chatphone").animate({height: "380px"});
+                    open = 1;
+                }
+                else{
+                    $("#topChat2").toggleClass('hidden show');
+                    $("#usersList").toggleClass('hidden show');    
+                    $("#chatphone").animate({height: "0px"});
+                    open = 0;
+                }
             });
         });
     </script>
