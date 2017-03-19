@@ -12,7 +12,7 @@ colorTable[8] = 'saddlebrown'; colorTable[9] = 'slategrey';
 
 window.fbAsyncInit = function() {
     FB.init({
-    appId      : '1663510080555663',
+    appId      : '1660216214218383',
     xfbml      : true,
     version    : 'v2.5',
     status     : true, // check login status
