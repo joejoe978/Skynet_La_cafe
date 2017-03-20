@@ -166,7 +166,7 @@
                 <!-- <a class="fa fa-comment fa-3x toggle visible-xs" id="chatclick">chat</a> -->
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
+            <!-- nav bar -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="hidden">
@@ -176,7 +176,7 @@
                         <a class="page-scroll hidden-xs" href="#portfolio">使用方法</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#map" id="#map">地圖＆聊天室</a>
+                        <a class="page-scroll" href="#map" id="#map">地圖</a>
                     </li>
                     <li>
                         <a class="page-scroll hidden-xs" href="#portfolio2">製作工具</a>
@@ -345,7 +345,6 @@
                   </ul>
               </div>
 
-
                <!--the map --> 
                <div style="height:440px; width:100%;">
                   <div id="googleMap"></div>
@@ -401,30 +400,29 @@
                </div>
                <!-- dropdown div -->
             </div>
-            
-            <!-- chatroom hidden at phone-->
-            <div class = "hidden-xs col-md-12" id="content">
-                <div id='chat' style="width:100%; height:200px ; overflow:auto; line-height:30px;"></div>
-                </br>
-                <form id='send-message'>
-                  <div class="input-group">
-                    <input type="text" class="form-control" id='message' placeholder="請輸入聊天訊息...">
-                    <span class="input-group-btn">
-                       <button type="submit" class="btn btn-default">送出</button>
-                    </span>
-                  </div>
-                </form>
-            </div>
-
-            <!-- chatroom people hidden at phone-->
-            <div class = "hidden-xs col-md-12">
-                線上名單:
-                <div id="users" style="height:200px; overflow:auto;"></div>
-            </div>
-
         </div>
         </div>
 	</section>
+
+  <!-- chatroom hidden at phone 
+    <div class = "hidden-xs col-md-12" id="content">
+        <div id='chat' style="width:100%; height:200px ; overflow:auto; line-height:30px;"></div>
+        </br>
+        <form id='send-message'>
+          <div class="input-group">
+            <input type="text" class="form-control" id='message' placeholder="請輸入聊天訊息...">
+            <span class="input-group-btn">
+               <button type="submit" class="btn btn-default">送出</button>
+            </span>
+          </div>
+        </form>
+    </div>
+
+    <div class = "hidden-xs col-md-12">
+        線上名單:
+        <div id="users" style="height:200px; overflow:auto;"></div>
+    </div>
+  chatroom -->
 
     <!-- How to build -->
     <section id="portfolio2" class="bg-light-gray hidden-xs">
