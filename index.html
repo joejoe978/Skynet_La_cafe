@@ -324,13 +324,13 @@
     <section id="map">
         <div class="container-fluid">
 
-            <div class="row" id="top" style="margin-top:-50px;">
+            <div class="row" id="top" style="margin-top:-20px;">
               <div id="fbImg" class = "col-xs-12 col-md-12"></div>
             </div></br>
 
-            <div class="row" style="margin-top:-10px;">
+            <div class="row" style="margin-top:0px;">
             <!-- google map -->
-            <div class = "col-xs-12 col-md-8">
+            <div class = "col-xs-12 col-md-12">
               <input id="pac-input" class="controls" type="text" placeholder="搜尋地點...">
               <div id="text-panel"></div>
               <div id="floating-panel">
@@ -349,7 +349,6 @@
                <!--the map --> 
                <div style="height:440px; width:100%;">
                   <div id="googleMap"></div>
-
                   <script type="text/javascript">
                     var map; var userMarker; var insertName=0; var mypos = []; //store my position
                     var markersName = [], allMarkers =[]; // Name already in map, Marker already in map
@@ -395,7 +394,6 @@
                             }, 3 * 1000);
                           }
                     }, 1 * 1000);
-
                   </script>
 
                   <script async defer
@@ -403,10 +401,10 @@
                </div>
                <!-- dropdown div -->
             </div>
+            
             <!-- chatroom hidden at phone-->
-
-            <div class = "hidden-xs col-md-3" id="content">
-                <div id='chat' style="width:100%; height:385px ; overflow:auto; line-height:30px;"></div>
+            <div class = "hidden-xs col-md-12" id="content">
+                <div id='chat' style="width:100%; height:200px ; overflow:auto; line-height:30px;"></div>
                 </br>
                 <form id='send-message'>
                   <div class="input-group">
@@ -419,9 +417,9 @@
             </div>
 
             <!-- chatroom people hidden at phone-->
-            <div class = "hidden-xs col-md-1">
+            <div class = "hidden-xs col-md-12">
                 線上名單:
-                <div id="users" style="height:385px; overflow:auto;"></div>
+                <div id="users" style="height:200px; overflow:auto;"></div>
             </div>
 
         </div>

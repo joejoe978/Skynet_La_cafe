@@ -49,9 +49,10 @@ function watchCurrentPosition() {
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('googleMap'), {
-        center: {lat: 25.047908, lng: 121.517315},
-        zoom: 11,
+        center: {lat: 25.038117, lng: 121.558917},
+        zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
+        scrollwheel: false,
         mapTypeControl: false
     });
 
