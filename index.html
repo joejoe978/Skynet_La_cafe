@@ -116,6 +116,139 @@
       #credits{
         margin-top: 15%
       }
+
+      /********************************* chat box **************************************/
+      {
+          -webkit-border-radius: 0px  !important;
+          -moz-border-radius: 0px  !important;
+          border-radius: 0px !important;
+      }
+      html, body
+      {
+          padding: 0;
+          margin: 0;
+          position: relative;
+      }
+      .clearFix
+      {
+          clear:both;
+      }
+      .panel.panel-chat
+      {
+          position: fixed;
+          bottom:0;
+          right:0;
+          margin-bottom: 0px;
+          max-width: 400px;
+          box-shadow: none;
+          -webkit-box-shadow: none;
+          z-index: 100;
+      }
+      .panel.panel-chat *
+      {
+          background: none;
+          border: none;
+      }
+      .panel.panel-chat .panel-heading
+      {
+          background: #4b67a8;
+          border: 0px solid #2e4588;
+          color:#FFF;
+      }
+      .panel.panel-chat .panel-heading a:nth-of-type(1)
+      {
+          text-decoration: none;
+          width: 150px;
+          color:#FFF;
+          font-weight: bold;
+          float:left;
+      }
+      .panel.panel-chat .panel-heading a:nth-of-type(2)
+      {
+          text-decoration: none;
+          max-width: 11px;
+          width: 11px;
+          color:#FFF;
+          float:right;
+      }
+      .panel.panel-chat .panel-body
+      {
+          display: block;
+          padding: 0;
+          margin: 0;
+          max-height: 250px;
+          height: 250px;
+          border-left: 1px solid #b2b2b2;
+          border-right: 1px solid #b2b2b2;
+          background: #FFF;
+          overflow: auto;
+      }
+      .panel.panel-chat .panel-body::-webkit-scrollbar {
+           display: none;
+       }
+      .panel.panel-chat .panel-body .messageMe
+      {
+          border:1px ;
+      }
+      .panel.panel-chat .panel-body .messageMe img
+       {
+           float:right;
+           max-width: 40px;
+           max-height: 40px;
+       }
+      .panel.panel-chat .panel-body .messageMe span
+      {
+          display: block;
+          float:right;
+          margin:5px;
+          padding:5px;
+          background: #FFF; 
+          min-height: 40px;
+          max-width: 240px;
+          height: 40px;
+          width: 2640px;
+          word-break: break-all;
+      }
+      .panel.panel-chat .panel-body .messageHer
+      {
+          border: 1px;
+      }
+      .panel.panel-chat .panel-body .messageHer img
+      {
+          float:left;
+          max-width: 40px;
+          max-height: 40px;
+      }
+      .panel.panel-chat .panel-body .messageHer span
+      {
+          display: block;
+          float:left;
+          margin:5px;
+          padding:5px;
+          background: #FFF;
+          min-height: 40px;
+          max-width: 240px;
+          height: 40px;
+          width: 240px;
+          word-break: break-all;
+      }
+      .panel.panel-chat .panel-footer
+      {
+          padding: 0;
+          margin: 0;
+          border: 1px solid #b2b2b2;
+          max-height: 40px;
+          height: 40px;
+      }
+      .panel.panel-chat .panel-footer textarea
+      {
+          margin-bottom: -5px;
+          resize: none;
+          width: 100%;
+          height: 100%;
+      }
+    /********************************* chat box **************************************/
+
     </style>
 
     <meta charset="utf-8">
@@ -143,7 +276,6 @@
     <script type="text/javascript" src="socket.io/socket.io.js"></script>
     <script type="text/javascript" src="chatJsFile/fbchat.js"></script>
     <script type="text/javascript" src="chatJsFile/geolocation.js"></script>
-
 </head>
 
 <body id="page-top" class="index">
@@ -213,35 +345,10 @@
             </form>     
           </div>
         </div>
-
     </nav>
-
-    <!-- chatroom slidedown test class="hidden" style="height:350px;" -->
-    <!-- <div id="credits" style="height:0px;"> -->
-        <!-- <div class="container-fluid" style="height:300px;">
-          <div class = "col-xs-12">
-            線上名單:
-            <div id="usersphone" style="overflow:auto;"></div>
-          </div>
-
-          <div class="col-xs-12">
-            <div id='chatphone' style="width:100%; height:auto ; overflow:auto; line-height:30px;"></div>
-            </br>
-            <form id='send-messagephone'>
-              <div class="input-group">
-                <input type="text" class="form-control" id='messagephone' placeholder="請輸入聊天訊息...">
-                <span class="input-group-btn">
-                   <button type="submit" class="btn btn-default">送出</button>
-                </span>
-              </div>
-            </form>     
-          </div>
-        </div> -->
-    <!-- </div> -->
 
     <!-- Header -->
     <header>
-
         <div class="container">
             <div class="intro-text">
                 </br></br></br></br>
@@ -251,6 +358,31 @@
             </div>
         </div>
     </header>
+
+    <!-- chatbox begin -->
+    <div class="row">
+      <div class="panel panel-chat">
+        <div class="panel-heading">
+            <a href="#" class="chatMinimize" onclick="return false"><span>聊天室</span></a>
+            <div class="clearFix"></div>
+        </div>
+        <div class="panel-body">
+            <div class="messageMe">
+                <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt=""/>
+                <span>asdasdssadasdasdassssssssskdlfkds;lfkl;dfkl;sdkfl;sdkfsd</span>
+            </div>
+            <div class="messageHer">
+                <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt=""/>
+                <span>asdasdsassssssssdflksd;lfksl;dfkl;sdkfl;sdkf;dskls</span>
+            </div>
+            <div class="clearFix"></div>
+        </div>
+        <div class="panel-footer">
+            <textarea name="textMessage" cols="0" rows="0"></textarea>
+        </div>
+      </div>
+    </div>
+    <!-- chatbox end -->
 
     <!-- How to use -->
     <section id="portfolio" class="bg-light-gray hidden-xs">
@@ -402,27 +534,7 @@
             </div>
         </div>
         </div>
-	</section>
-
-  <!-- chatroom hidden at phone 
-    <div class = "hidden-xs col-md-12" id="content">
-        <div id='chat' style="width:100%; height:200px ; overflow:auto; line-height:30px;"></div>
-        </br>
-        <form id='send-message'>
-          <div class="input-group">
-            <input type="text" class="form-control" id='message' placeholder="請輸入聊天訊息...">
-            <span class="input-group-btn">
-               <button type="submit" class="btn btn-default">送出</button>
-            </span>
-          </div>
-        </form>
-    </div>
-
-    <div class = "hidden-xs col-md-12">
-        線上名單:
-        <div id="users" style="height:200px; overflow:auto;"></div>
-    </div>
-  chatroom -->
+	  </section>
 
     <!-- How to build -->
     <section id="portfolio2" class="bg-light-gray hidden-xs">
@@ -643,6 +755,37 @@
                     open = 0;
                 }
             });
+        });
+    </script>
+
+    <!-- chatbox script -->
+    <script>
+        $(".panel.panel-chat > .panel-heading > .chatMinimize").click(function(){
+            if($(this).parent().parent().hasClass('mini'))
+            {
+                $(this).parent().parent().removeClass('mini').addClass('normal');
+
+                $('.panel.panel-chat > .panel-body').animate({height: "250px"}, 500).show();
+
+                $('.panel.panel-chat > .panel-footer').animate({height: "75px"}, 500).show();
+            }
+            else
+            {
+                $(this).parent().parent().removeClass('normal').addClass('mini');
+
+                $('.panel.panel-chat > .panel-body').animate({height: "0"}, 500);
+
+                $('.panel.panel-chat > .panel-footer').animate({height: "0"}, 500);
+
+                setTimeout(function() {
+                    $('.panel.panel-chat > .panel-body').hide();
+                    $('.panel.panel-chat > .panel-footer').hide();
+                }, 500);
+            }
+
+        });
+        $(".panel.panel-chat > .panel-heading > .chatClose").click(function(){
+            $(this).parent().parent().remove();
         });
     </script>
 
