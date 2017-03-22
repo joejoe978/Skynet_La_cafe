@@ -361,7 +361,7 @@
 
     <!-- chatbox begin -->
     <div class="row">
-      <div class="panel panel-chat">
+      <div class="panel panel-chat" id="mychatbox">
         <div class="panel-heading">
             <a href="#" class="chatMinimize" onclick="return false"><span>聊天室</span></a>
             <div class="clearFix"></div>
@@ -760,33 +760,37 @@
 
     <!-- chatbox script -->
     <script>
+        
+        var d = document.getElementById("mychatbox");
+        $(d).removeClass('normal').addClass('mini');
+        $('.panel.panel-chat > .panel-body').hide();
+        $('.panel.panel-chat > .panel-footer').hide();
+
         $(".panel.panel-chat > .panel-heading > .chatMinimize").click(function(){
-            if($(this).parent().parent().hasClass('mini'))
+            if($(this).parent().parent().hasClass('mini'))   // enlarge
             {
+                console.log("enlarge");
+                console.log($(this).parent().parent());
                 $(this).parent().parent().removeClass('mini').addClass('normal');
 
                 $('.panel.panel-chat > .panel-body').animate({height: "250px"}, 500).show();
 
                 $('.panel.panel-chat > .panel-footer').animate({height: "75px"}, 500).show();
             }
-            else
+            else                                            // shrink
             {
+                console.log("shrink");
+                console.log($(this).parent().parent());
                 $(this).parent().parent().removeClass('normal').addClass('mini');
-
-                $('.panel.panel-chat > .panel-body').animate({height: "0"}, 500);
-
-                $('.panel.panel-chat > .panel-footer').animate({height: "0"}, 500);
-
+                //$('.panel.panel-chat > .panel-body').animate({height: "0"}, 500);
+                //$('.panel.panel-chat > .panel-footer').animate({height: "0"}, 500);
                 setTimeout(function() {
                     $('.panel.panel-chat > .panel-body').hide();
                     $('.panel.panel-chat > .panel-footer').hide();
-                }, 500);
+                }, 100);
             }
-
         });
-        $(".panel.panel-chat > .panel-heading > .chatClose").click(function(){
-            $(this).parent().parent().remove();
-        });
+        
     </script>
 
     <script src="js/jquery.js">
