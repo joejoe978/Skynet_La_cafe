@@ -133,16 +133,19 @@
       {
           clear:both;
       }
+      
       .panel.panel-chat
       {
           position: fixed;
           bottom:0;
           right:0;
           margin-bottom: 0px;
-          max-width: 400px;
+          max-width: 300px;
+          width: 150px;
           box-shadow: none;
           -webkit-box-shadow: none;
           z-index: 100;
+          display: none;
       }
       .panel.panel-chat *
       {
@@ -151,8 +154,10 @@
       }
       .panel.panel-chat .panel-heading
       {
-          background: #4b67a8;
-          border: 0px solid #2e4588;
+          /* background: #4b67a8; */
+          background: #2F2B2A; 
+           border: 1px solid #2e4588; 
+          /*border: 0.5px solid #10C9D2;*/
           color:#FFF;
       }
       .panel.panel-chat .panel-heading a:nth-of-type(1)
@@ -176,8 +181,8 @@
           display: block;
           padding: 0;
           margin: 0;
-          max-height: 250px;
-          height: 250px;
+          max-height: 250px;    /* text height */
+          height: 0px;        /* First height */
           border-left: 1px solid #b2b2b2;
           border-right: 1px solid #b2b2b2;
           background: #FFF;
@@ -203,10 +208,10 @@
           margin:5px;
           padding:5px;
           background: #FFF; 
-          min-height: 40px;
-          max-width: 240px;
-          height: 40px;
-          width: 2640px;
+          min-height: 50px;
+          max-width: 280px;
+          height: 50px;
+          width: 280px;
           word-break: break-all;
       }
       .panel.panel-chat .panel-body .messageHer
@@ -228,7 +233,7 @@
           background: #FFF;
           min-height: 40px;
           max-width: 240px;
-          height: 40px;
+          height: 40px;     
           width: 240px;
           word-break: break-all;
       }
@@ -237,8 +242,8 @@
           padding: 0;
           margin: 0;
           border: 1px solid #b2b2b2;
-          max-height: 40px;
-          height: 40px;
+          max-height: 35px;   /* input height */
+          height: 0px;      /* First height */
       }
       .panel.panel-chat .panel-footer textarea
       {
@@ -760,34 +765,27 @@
 
     <!-- chatbox script -->
     <script>
-        
-        var d = document.getElementById("mychatbox");
-        $(d).removeClass('normal').addClass('mini');
-        $('.panel.panel-chat > .panel-body').hide();
-        $('.panel.panel-chat > .panel-footer').hide();
-
+        var first = 1;
         $(".panel.panel-chat > .panel-heading > .chatMinimize").click(function(){
-            if($(this).parent().parent().hasClass('mini'))   // enlarge
-            {
-                console.log("enlarge");
-                console.log($(this).parent().parent());
-                $(this).parent().parent().removeClass('mini').addClass('normal');
-
-                $('.panel.panel-chat > .panel-body').animate({height: "250px"}, 500).show();
-
-                $('.panel.panel-chat > .panel-footer').animate({height: "75px"}, 500).show();
+            if(first == 1){
+                $('.panel.panel-chat').animate({width:"300px"}, 500).show();
+                $('.panel.panel-chat > .panel-body').animate({height: "250px", width:"300px"}, 500).show();
+                $('.panel.panel-chat > .panel-footer').animate({height: "35px", width:"300px"}, 500).show();                
+                first = 0;
             }
-            else                                            // shrink
-            {
-                console.log("shrink");
-                console.log($(this).parent().parent());
-                $(this).parent().parent().removeClass('normal').addClass('mini');
-                //$('.panel.panel-chat > .panel-body').animate({height: "0"}, 500);
-                //$('.panel.panel-chat > .panel-footer').animate({height: "0"}, 500);
-                setTimeout(function() {
-                    $('.panel.panel-chat > .panel-body').hide();
-                    $('.panel.panel-chat > .panel-footer').hide();
-                }, 100);
+            else{
+                if($(this).parent().parent().hasClass('mini')){   // enlarge
+                    $('.panel.panel-chat').animate({width:"300px"}, 500).show();
+                    $(this).parent().parent().removeClass('mini').addClass('normal');
+                    $('.panel.panel-chat > .panel-body').animate({height: "250px", width:"300px"}, 500).show();
+                    $('.panel.panel-chat > .panel-footer').animate({height: "35px", width:"300px"}, 500).show();
+                }
+                else{                                            // shrink
+                    $(this).parent().parent().removeClass('normal').addClass('mini');
+                    $('.panel.panel-chat').animate({width:"150px"}, 500).show();
+                    $('.panel.panel-chat > .panel-body').animate({height: "0"}, 500);
+                    $('.panel.panel-chat > .panel-footer').animate({height: "0", width:"150px"}, 500);              
+                }
             }
         });
         
