@@ -1,25 +1,45 @@
 var mongodb         =       require('mongodb');
 var database        =       'mongodb://localhost:27017/mobileMap';
 var MongoClient     =       mongodb.MongoClient;
-var http            =       require("http");
+//var http            =       require("http");
+var https            =       require("https");
 var fs              =       require('fs');
 var cp              =       require('child_process');
 var bodyParser      =       require('body-parser');
 var path 			      = 		  require('path');
 var express         =       require("express");
 var app             =       express();
-var server          =       http.createServer(app);
+//var server          =       http.createServer(app);
 var io              =       require('socket.io').listen(server);
 var nicknames = [];
 var collection ;
 
-server.listen(5000,function(){
-    console.log("Working on port 5000"); 
-});
+const SERVER_CONFIG = {
+    key:  fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.crt')
+    //requestCert: false,
+    //rejectUnauthorized: false
+};
 
-app.get('/',function(req,res){
+app.get('/', function(req,res) {
     res.sendFile(__dirname + "/index.html");
 });
+
+var server = https.createServer(SERVER_CONFIG, app);
+
+server.listen(3000,function(){
+    console.log("HTTPS server started at 3000"); 
+});
+
+ 
+// server.listen(3000,function(){
+//     console.log("Working on port 3000"); 
+// });
+
+// app.get('/',function(req,res){
+//     res.sendFile(__dirname + "/index.html");
+// });
+
 
 app.use(bodyParser());
 app.use("/css", express.static(__dirname + '/css'));
