@@ -13,24 +13,6 @@ var server          =       http.createServer(app);
 var io              =       require('socket.io').listen(server);
 var nicknames = [];
 var collection ;
-
-
-// const SERVER_CONFIG = {
-//     key:  fs.readFileSync('server.key'),
-//     cert: fs.readFileSync('server.crt')
-//     //requestCert: false,
-//     //rejectUnauthorized: false
-// };
-
-// app.get('/', function(req,res) {
-//     res.sendFile(__dirname + "/index.html");
-// });
-
-// var server = https.createServer(SERVER_CONFIG, app);
-
-// server.listen(3000,function(){
-//     console.log("HTTPS server started at 3000"); 
-// });
  
 var port = process.env.PORT || 3000;
 server.listen(port,function(){
