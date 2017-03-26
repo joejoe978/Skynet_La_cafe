@@ -191,51 +191,40 @@
       .panel.panel-chat .panel-body::-webkit-scrollbar {
            display: none;
        }
-      .panel.panel-chat .panel-body .messageMe
+      #messageMe 
       {
-          border:1px ;
-      }
-      .panel.panel-chat .panel-body .messageMe img
-       {
-           float:right;
-           max-width: 40px;
-           max-height: 40px;
-       }
-      .panel.panel-chat .panel-body .messageMe span
-      {
+          /*border:5px ;*/
+          padding:10px 0px 10px 0px;
           display: block;
-          float:right;
-          margin:5px;
-          padding:5px;
+          /*float:right;*/
+          /*margin:5px;*/
+          /*margin-right: -5px;*/
           background: #FFF; 
-          min-height: 50px;
-          max-width: 280px;
-          height: 50px;
-          width: 280px;
+          min-height: 40px;
+          /*max-width: 280px;*/
+          width: 290px;
           word-break: break-all;
       }
-      .panel.panel-chat .panel-body .messageHer
+      
+      #herImg
       {
-          border: 1px;
+          /*float:left;*/
+          width: 35px;
+          height: 35px;
       }
-      .panel.panel-chat .panel-body .messageHer img
-      {
-          float:left;
-          max-width: 40px;
-          max-height: 40px;
-      }
-      .panel.panel-chat .panel-body .messageHer span
+      #messageHer 
       {
           display: block;
-          float:left;
-          margin:5px;
-          padding:5px;
+          padding:10px 0px 10px 0px;
           background: #FFF;
           min-height: 40px;
-          max-width: 240px;
-          height: 40px;     
-          width: 240px;
+          max-width: 300px;
+          width: 300px;
           word-break: break-all;
+      }
+      #herTalk 
+      {
+          margin-left:-5px;
       }
       .panel.panel-chat .panel-footer
       {
@@ -368,20 +357,39 @@
     <div class="row">
       <div class="panel panel-chat" id="mychatbox">
         <div class="panel-heading">
-            <a href="#" class="chatMinimize" onclick="return false"><span>聊天室</span></a>
+            <a href="#" class="chatMinimize" onclick="return false" style="font-size:small;"><span>聊天室</span></a>
             <div class="clearFix"></div>
         </div>
-        <div class="panel-body">
-            <div class="messageMe">
-                <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt=""/>
-                <span>asdasdssadasdasdassssssssskdlfkds;lfkl;dfkl;sdkfl;sdkfsd</span>
+  
+        <div class="panel-body" style="font-size:small" >
+            <div class="row" id="messageMe">
+                <div class="col-md-2">
+                </div> 
+                <div class="col-md-10">
+                  <span>有人用一滴淚 會紅顏禍水
+                        有人丟掉稱謂 什麼也不會
+                        只要你足夠虛偽 就不怕魔鬼 對不對
+                        管他配不配</span>
+                </div>
             </div>
-            <div class="messageHer">
-                <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt=""/>
-                <span>asdasdsassssssssdflksd;lfksl;dfkl;sdkfl;sdkf;dskls</span>
+
+            <div class="row" id="messageHer">
+                <div class="col-md-2">
+                  <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt="" id="herImg"/>
+                </div>
+                <div class="col-md-9" id="herTalk">
+                  <span>如果世界漆黑 其實我很美
+                        在愛情裡面進退 最多被消費
+                        無關痛癢的是非
+                        又怎麼不對 無所謂 醜八怪 能否別把燈打開
+                        我要的愛 出沒在漆黑一片的舞台
+                        醜八怪 在這曖昧的時代
+                        我的存在 像意外
+                  </span>
+                </div>
             </div>
-            <div class="clearFix"></div>
         </div>
+      
         <div class="panel-footer">
             <textarea name="textMessage" cols="0" rows="0"></textarea>
         </div>
