@@ -117,132 +117,6 @@
         margin-top: 15%
       }
 
-      /********************************* chat box **************************************/
-      {
-          -webkit-border-radius: 0px  !important;
-          -moz-border-radius: 0px  !important;
-          border-radius: 0px !important;
-      }
-      html, body
-      {
-          padding: 0;
-          margin: 0;
-          position: relative;
-      }
-      .clearFix
-      {
-          clear:both;
-      }
-      
-      .panel.panel-chat
-      {
-          position: fixed;
-          bottom:0;
-          right:0;
-          margin-bottom: 0px;
-          max-width: 300px;
-          width: 150px;
-          box-shadow: none;
-          -webkit-box-shadow: none;
-          z-index: 100;
-          display: none;
-      }
-      .panel.panel-chat *
-      { 
-          background: none;
-          border: none;
-      }
-      .panel.panel-chat .panel-heading
-      {
-          /* background: #4b67a8; */
-          background: #2F2B2A; 
-           border: 1px solid #2e4588; 
-          /*border: 0.5px solid #10C9D2;*/
-          color:#FFF;
-      }
-      .panel.panel-chat .panel-heading a:nth-of-type(1)
-      {
-          text-decoration: none;
-          width: 150px;
-          color:#FFF;
-          font-weight: bold;
-          float:left;
-      }
-      .panel.panel-chat .panel-heading a:nth-of-type(2)
-      {
-          text-decoration: none;
-          max-width: 11px;
-          width: 11px;
-          color:#FFF;
-          float:right;
-      }
-      .panel.panel-chat .panel-body
-      {
-          display: block;
-          padding: 0;
-          margin: 0;
-          max-height: 250px;    /* text height */
-          height: 0px;        /* First height */
-          border-left: 1px solid #b2b2b2;
-          border-right: 1px solid #b2b2b2;
-          background: #FFF;
-          overflow: auto;
-      }
-      .panel.panel-chat .panel-body::-webkit-scrollbar {
-           display: none;
-       }
-      #messageMe 
-      {
-          /*border:5px ;*/
-          padding:10px 0px 10px 0px;
-          display: block;
-          /*float:right;*/
-          /*margin:5px;*/
-          /*margin-right: -5px;*/
-          background: #FFF; 
-          min-height: 40px;
-          /*max-width: 280px;*/
-          width: 290px;
-          word-break: break-all;
-      }
-      
-      #herImg
-      {
-          /*float:left;*/
-          width: 35px;
-          height: 35px;
-      }
-      #messageHer 
-      {
-          display: block;
-          padding:10px 0px 10px 0px;
-          background: #FFF;
-          min-height: 40px;
-          max-width: 300px;
-          width: 300px;
-          word-break: break-all;
-      }
-      #herTalk 
-      {
-          margin-left:-5px;
-      }
-      .panel.panel-chat .panel-footer
-      {
-          padding: 0;
-          margin: 0;
-          border: 1px solid #b2b2b2;
-          max-height: 35px;   /* input height */
-          height: 0px;      /* First height */
-      }
-      .panel.panel-chat .panel-footer textarea
-      {
-          margin-bottom: -5px;
-          resize: none;
-          width: 100%;
-          height: 100%;
-      }
-    /********************************* chat box **************************************/
-
     </style>
 
     <meta charset="utf-8">
@@ -257,6 +131,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/agency.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -353,7 +228,33 @@
         </div>
     </header>
 
-    <!-- chatbox begin -->
+    <!-- Chatbox begin -->
+    <div class="chat_box" id="mychatbox">
+      <div class="chat_head">在線名單</div>
+      <div class="chat_body"> 
+        <div class="user">
+          游上葦 </br>
+          林冠銘 </br>
+        </div>
+      </div>
+    </div>
+
+    <div class="msg_box" id="mymsgbox">
+      <div class="msg_head">聊天室</div>
+      <div class="msg_wrap">
+        <div class="msg_body">
+          <div class="msg_a">This is from A </div>
+          <div class="msg_b">This is from B, and its amazingly kool nah... i know it even i liked it :)</div>
+          <div class="msg_a">Wow, Thats great to hear from you man </div> 
+          <div class="msg_push"></div>
+        </div>
+        <div class="msg_footer">
+          <textarea class="msg_input" cols="0" rows="0"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- chatbox begin 
     <div class="row">
       <div class="panel panel-chat" id="mychatbox">
         <div class="panel-heading">
@@ -773,31 +674,82 @@
 
     <!-- chatbox script -->
     <script>
-        var first = 1;
-        $(".panel.panel-chat > .panel-heading > .chatMinimize").click(function(){
-            if(first == 1){
-                $('.panel.panel-chat').animate({width:"300px"}, 500).show();
-                $('.panel.panel-chat > .panel-body').animate({height: "250px", width:"300px"}, 500).show();
-                $('.panel.panel-chat > .panel-footer').animate({height: "35px", width:"300px"}, 500).show();                
-                first = 0;
+        var first = 0; online = 0;
+        $('.msg_head').click(function(){
+            if(first == 0){
+                $('.msg_box').animate({margin:"0px 100px"}, 500).show();
+                $('.msg_head').animate({width:"250px"}, 500).show();
+                $('.msg_body').animate({height: "250px", width:"250px"}, 500).show();
+                $('.msg_wrap').animate({height: "280px", width:"250px"}, 500).show();
+                first = 1;
             }
             else{
-                if($(this).parent().parent().hasClass('mini')){   // enlarge
-                    $('.panel.panel-chat').animate({width:"300px"}, 500).show();
-                    $(this).parent().parent().removeClass('mini').addClass('normal');
-                    $('.panel.panel-chat > .panel-body').animate({height: "250px", width:"300px"}, 500).show();
-                    $('.panel.panel-chat > .panel-footer').animate({height: "35px", width:"300px"}, 500).show();
+                if(first == 1){                    
+                    $('.msg_box').animate({margin:"0px 0px"}, 500).show();              
+                    $('.msg_head').animate({width:"150px"}, 500).show();
+                    $('.msg_body').animate({height:"0px", widhth:"150px"}, 500).show();
+                    $('.msg_wrap').animate({height: "0px", width:"150px"}, 500).show();
+                    first = 2;
                 }
-                else{                                            // shrink
-                    $(this).parent().parent().removeClass('normal').addClass('mini');
-                    $('.panel.panel-chat').animate({width:"150px"}, 500).show();
-                    $('.panel.panel-chat > .panel-body').animate({height: "0"}, 500);
-                    $('.panel.panel-chat > .panel-footer').animate({height: "0", width:"150px"}, 500);              
+                else{           
+                    $('.msg_box').animate({margin:"0px 100px"}, 500).show();              
+                    $('.msg_head').animate({width:"250px"}, 500).show();
+                    $('.msg_body').animate({height:"250px", width:"250px;"}, 500).show(); 
+                    $('.msg_wrap').animate({height: "280px", width:"250px"}, 500).show();
+                    first = 1;
                 }
             }
         });
+
+        $('.chat_head').click(function(){
+            if(online == 0){  // height: 281 
+                $('.chat_body').animate({height: "281px"}, 500).show();
+                online = 1;
+            }
+            else{
+                if(online == 1){                    
+                    $('.chat_body').animate({height: "0px"}, 500).show();
+                    online = 2;
+                }
+                else{           
+                    $('.chat_body').animate({height: "281px"}, 500).show();
+                    online = 1;
+                }
+            }
+        });
+    </script>  
+
+    <!-- 
+    $(document).ready(function(){
+    //     $('.chat_head').click(function(){
+    //       $('.chat_body').slideToggle('slow');
+    //     });
+    //     $('.msg_head').click(function(){
+    //       $('.msg_wrap').slideToggle('slow');
+    //     });
         
-    </script>
+    //     $('.close').click(function(){
+    //       $('.msg_box').hide();
+    //     });
+        
+    //     $('.user').click(function(){
+
+    //       $('.msg_wrap').show();
+    //       $('.msg_box').show();
+    //     });
+      
+    //     $('textarea').keypress(
+    //       function(e){
+    //           if (e.keyCode == 13) {
+    //               e.preventDefault();
+    //               var msg = $(this).val();
+    //         $(this).val('');
+    //         if(msg!='')
+    //         $('<div class="msg_b">'+msg+'</div>').insertBefore('.msg_push');
+    //         $('.msg_body').scrollTop($('.msg_body')[0].scrollHeight);
+    //           }
+    //       });
+     });  -->
 
     <script src="js/jquery.js">
     </script>

@@ -15,6 +15,7 @@ var cbpAnimatedHeader = (function() {
 		didScroll = false,
 		changeHeaderOn = 300;
 		chatbox = $('#mychatbox');
+		msgbox = $('#mymsgbox');
 
 	function init() {
 		window.addEventListener( 'scroll', function( event ) {
@@ -30,10 +31,12 @@ var cbpAnimatedHeader = (function() {
 		if ( sy >= changeHeaderOn ) {
 			classie.add( header, 'navbar-shrink' );
 			chatbox.show();
+			msgbox.show();
 		}
 		else {
 			classie.remove( header, 'navbar-shrink' );
 			chatbox.hide();
+			msgbox.hide();
 		}
 		didScroll = false;
 	}

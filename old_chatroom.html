@@ -167,3 +167,32 @@
       </div>
     </div>
     <!-- chatbox end -->
+
+
+    <!-- chatbox script -->
+    <script>
+        var first = 1;
+        $(".panel.panel-chat > .panel-heading > .chatMinimize").click(function(){
+            if(first == 1){
+                $('.panel.panel-chat').animate({width:"300px"}, 500).show();
+                $('.panel.panel-chat > .panel-body').animate({height: "250px", width:"300px"}, 500).show();
+                $('.panel.panel-chat > .panel-footer').animate({height: "35px", width:"300px"}, 500).show();                
+                first = 0;
+            }
+            else{
+                if($(this).parent().parent().hasClass('mini')){   // enlarge
+                    $('.panel.panel-chat').animate({width:"300px"}, 500).show();
+                    $(this).parent().parent().removeClass('mini').addClass('normal');
+                    $('.panel.panel-chat > .panel-body').animate({height: "250px", width:"300px"}, 500).show();
+                    $('.panel.panel-chat > .panel-footer').animate({height: "35px", width:"300px"}, 500).show();
+                }
+                else{                                            // shrink
+                    $(this).parent().parent().removeClass('normal').addClass('mini');
+                    $('.panel.panel-chat').animate({width:"150px"}, 500).show();
+                    $('.panel.panel-chat > .panel-body').animate({height: "0"}, 500);
+                    $('.panel.panel-chat > .panel-footer').animate({height: "0", width:"150px"}, 500);              
+                }
+            }
+        });
+        
+    </script>

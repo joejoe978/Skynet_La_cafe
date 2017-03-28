@@ -1,153 +1,22 @@
 
-body{
-	background:#16a085;
-	margin:0px;
-	height:900px;
-	font-family: sans-serif;
-}
-
-/********************************* chat box **************************************/
-      {
-          -webkit-border-radius: 0px  !important;
-          -moz-border-radius: 0px  !important;
-          border-radius: 0px !important;
-      }
-      html, body
-      {
-          padding: 0;
-          margin: 0;
-          position: relative;
-      }
-      .clearFix
-      {
-          clear:both;
-      }
-      
-      .panel.panel-chat
-      {
-          position: fixed;
-          bottom:0;
-          right:0;
-          margin-bottom: 0px;
-          max-width: 300px;
-          width: 150px;
-          box-shadow: none;
-          -webkit-box-shadow: none;
-          z-index: 100;
-          display: none;
-      }
-      .panel.panel-chat *
-      { 
-          background: none;
-          border: none;
-      }
-      .panel.panel-chat .panel-heading
-      {
-          /* background: #4b67a8; */
-          background: #2F2B2A; 
-           border: 1px solid #2e4588; 
-          /*border: 0.5px solid #10C9D2;*/
-          color:#FFF;
-      }
-      .panel.panel-chat .panel-heading a:nth-of-type(1)
-      {
-          text-decoration: none;
-          width: 150px;
-          color:#FFF;
-          font-weight: bold;
-          float:left;
-      }
-      .panel.panel-chat .panel-heading a:nth-of-type(2)
-      {
-          text-decoration: none;
-          max-width: 11px;
-          width: 11px;
-          color:#FFF;
-          float:right;
-      }
-      .panel.panel-chat .panel-body
-      {
-          display: block;
-          padding: 0;
-          margin: 0;
-          max-height: 250px;    /* text height */
-          height: 0px;        /* First height */
-          border-left: 1px solid #b2b2b2;
-          border-right: 1px solid #b2b2b2;
-          background: #FFF;
-          overflow: auto;
-      }
-      .panel.panel-chat .panel-body::-webkit-scrollbar {
-           display: none;
-       }
-      #messageMe 
-      {
-          /*border:5px ;*/
-          padding:10px 0px 10px 0px;
-          display: block;
-          /*float:right;*/
-          /*margin:5px;*/
-          /*margin-right: -5px;*/
-          background: #FFF; 
-          min-height: 40px;
-          /*max-width: 280px;*/
-          width: 290px;
-          word-break: break-all;
-      }
-      
-      #herImg
-      {
-          /*float:left;*/
-          width: 35px;
-          height: 35px;
-      }
-      #messageHer 
-      {
-          display: block;
-          padding:10px 0px 10px 0px;
-          background: #FFF;
-          min-height: 40px;
-          max-width: 300px;
-          width: 300px;
-          word-break: break-all;
-      }
-      #herTalk 
-      {
-          margin-left:-5px;
-      }
-      .panel.panel-chat .panel-footer
-      {
-          padding: 0;
-          margin: 0;
-          border: 1px solid #b2b2b2;
-          max-height: 35px;   /* input height */
-          height: 0px;      /* First height */
-      }
-      .panel.panel-chat .panel-footer textarea
-      {
-          margin-bottom: -5px;
-          resize: none;
-          width: 100%;
-          height: 100%;
-      }
-    /********************************* chat box **************************************/
-
 .chat_box{
 	position:fixed;
-	right:20px;
+	right:0px;
 	bottom:0px;
-	width:250px;
+	width:150px;
+  z-index: 100;
+  display: none;
 }
 .chat_body{
 	background:white;
-	height:400px;
-	padding:5px 0px;
+	height:0px;
+	padding:0px 0px;
 }
 
 .chat_head,.msg_head{
 	background:#f39c12;
 	color:white;
-	padding:15px;
+	padding:10px;
 	font-weight:bold;
 	cursor:pointer;
 	border-radius:5px 5px 0px 0px;
@@ -155,10 +24,13 @@ body{
 
 .msg_box{
 	position:fixed;
-	bottom:-5px;
-	width:250px;
+	bottom:0px;
+	width:150px;
 	background:white;
 	border-radius:5px 5px 0px 0px;
+  z-index: 100;
+  right:160px;
+  display: none;
 }
 
 .msg_head{
@@ -167,12 +39,21 @@ body{
 
 .msg_body{
 	background:white;
-	height:200px;
+	height:0px;
 	font-size:12px;
-	padding:15px;
+	padding:10px;
 	overflow:auto;
 	overflow-x: hidden;
 }
+
+.msg_wrap{
+  height:0px;
+}
+
+.msg_footer{
+  height:10px;
+}
+
 .msg_input{
 	width:100%;
 	border: 1px solid white;
@@ -186,12 +67,6 @@ body{
 	float:right;
 	cursor:pointer;
 }
-.minimize{
-	float:right;
-	cursor:pointer;
-	padding-right:5px;
-	
-}
 
 .user{
 	position:relative;
@@ -202,7 +77,7 @@ body{
 	cursor:pointer;
 
 }
-.user:before{
+.user:before{  /* 綠燈 */
 	content:'';
 	position:absolute;
 	background:#2ecc71;
@@ -254,3 +129,133 @@ body{
 	right:-20px;
 	top:7px;
 }
+
+/********************************* chat box **************************************/
+/*     
+      {
+          -webkit-border-radius: 0px  !important;
+          -moz-border-radius: 0px  !important;
+          border-radius: 0px !important;
+      }
+      html, body
+      {
+          padding: 0;
+          margin: 0;
+          position: relative;
+      }
+      .clearFix
+      {
+          clear:both;
+      }
+      
+      .panel.panel-chat
+      {
+          position: fixed;
+          bottom:0;
+          right:0;
+          margin-bottom: 0px;
+          max-width: 300px;
+          width: 150px;
+          box-shadow: none;
+          -webkit-box-shadow: none;
+          z-index: 100;
+          display: none;
+      }
+      .panel.panel-chat *
+      { 
+          background: none;
+          border: none;
+      }
+      .panel.panel-chat .panel-heading
+      {
+          /* background: #4b67a8; 
+          background: #2F2B2A; 
+           border: 1px solid #2e4588; 
+          /*border: 0.5px solid #10C9D2;
+          color:#FFF;
+      }
+      .panel.panel-chat .panel-heading a:nth-of-type(1)
+      {
+          text-decoration: none;
+          width: 150px;
+          color:#FFF;
+          font-weight: bold;
+          float:left;
+      }
+      .panel.panel-chat .panel-heading a:nth-of-type(2)
+      {
+          text-decoration: none;
+          max-width: 11px;
+          width: 11px;
+          color:#FFF;
+          float:right;
+      }
+      .panel.panel-chat .panel-body
+      {
+          display: block;
+          padding: 0;
+          margin: 0;
+          max-height: 250px;    /* text height 
+          height: 0px;        /* First height 
+          border-left: 1px solid #b2b2b2;
+          border-right: 1px solid #b2b2b2;
+          background: #FFF;
+          overflow: auto;
+      }
+      .panel.panel-chat .panel-body::-webkit-scrollbar {
+           display: none;
+       }
+      #messageMe 
+      {
+          /*border:5px ;
+          padding:10px 0px 10px 0px;
+          display: block;
+          /*float:right;*/
+          /*margin:5px;*/
+          /*margin-right: -5px;
+          background: #FFF; 
+          min-height: 40px;
+          /*max-width: 280px;
+          width: 290px;
+          word-break: break-all;
+      }
+      
+      #herImg
+      {
+          /*float:left;
+          width: 35px;
+          height: 35px;
+      }
+      #messageHer 
+      {
+          display: block;
+          padding:10px 0px 10px 0px;
+          background: #FFF;
+          min-height: 40px;
+          max-width: 300px;
+          width: 300px;
+          word-break: break-all;
+      }
+      #herTalk 
+      {
+          margin-left:-5px;
+      }
+      .panel.panel-chat .panel-footer
+      {
+          padding: 0;
+          margin: 0;
+          border: 1px solid #b2b2b2;
+          max-height: 35px;   /* input height 
+          height: 0px;      /* First height 
+      }
+      .panel.panel-chat .panel-footer textarea
+      {
+          margin-bottom: -5px;
+          resize: none;
+          width: 100%;
+          height: 100%;
+      }
+*/
+/********************************* chat box **************************************/
+
+
