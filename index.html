@@ -116,7 +116,6 @@
       #credits{
         margin-top: 15%
       }
-
     </style>
 
     <meta charset="utf-8">
@@ -249,54 +248,10 @@
           <div class="msg_push"></div>
         </div>
         <div class="msg_footer">
-          <textarea class="msg_input" cols="0" rows="0"></textarea>
+          <textarea id="myInput" class="msg_input" cols="0" rows="0"></textarea>
         </div>
       </div>
     </div>
-
-    <!-- chatbox begin 
-    <div class="row">
-      <div class="panel panel-chat" id="mychatbox">
-        <div class="panel-heading">
-            <a href="#" class="chatMinimize" onclick="return false" style="font-size:small;"><span>聊天室</span></a>
-            <div class="clearFix"></div>
-        </div>
-  
-        <div class="panel-body" style="font-size:small" >
-            <div class="row" id="messageMe">
-                <div class="col-md-2">
-                </div> 
-                <div class="col-md-10">
-                  <span>有人用一滴淚 會紅顏禍水
-                        有人丟掉稱謂 什麼也不會
-                        只要你足夠虛偽 就不怕魔鬼 對不對
-                        管他配不配</span>
-                </div>
-            </div>
-
-            <div class="row" id="messageHer">
-                <div class="col-md-2">
-                  <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" alt="" id="herImg"/>
-                </div>
-                <div class="col-md-9" id="herTalk">
-                  <span>如果世界漆黑 其實我很美
-                        在愛情裡面進退 最多被消費
-                        無關痛癢的是非
-                        又怎麼不對 無所謂 醜八怪 能否別把燈打開
-                        我要的愛 出沒在漆黑一片的舞台
-                        醜八怪 在這曖昧的時代
-                        我的存在 像意外
-                  </span>
-                </div>
-            </div>
-        </div>
-      
-        <div class="panel-footer">
-            <textarea name="textMessage" cols="0" rows="0"></textarea>
-        </div>
-      </div>
-    </div>
-    <!-- chatbox end -->
 
     <!-- How to use -->
     <section id="portfolio" class="bg-light-gray hidden-xs">
@@ -643,12 +598,12 @@
 
     <!-- jQuery -->
     <script >
-        $(window).load(function(){
-            $('#openSkyModal').modal('show');
-            $('#openSkyModal').on('show.bs.modal', function () {
-                $('.modal-content').css('width',$( window ).width()*0.8);
-            });
-        });
+        // $(window).load(function(){
+        //     $('#openSkyModal').modal('show');
+        //     $('#openSkyModal').on('show.bs.modal', function () {
+        //         $('.modal-content').css('width',$( window ).width()*0.8);
+        //     });
+        // });
     </script>
 
     <script>
@@ -717,27 +672,23 @@
                 }
             }
         });
+
+        $('#myInput').keyup(function(e){
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                var msg = $(this).val();
+                if (msg == null){
+                  console.log('fuck');
+                }
+                $(this).val('');
+                if(msg!='')
+                    $('<div class="msg_b">'+msg+'</div>').insertBefore('.msg_push');
+                    $('.msg_body').scrollTop($('.msg_body')[0].scrollHeight);
+            }
+        });
     </script>  
 
-    <!-- 
-    $(document).ready(function(){
-    //     $('.chat_head').click(function(){
-    //       $('.chat_body').slideToggle('slow');
-    //     });
-    //     $('.msg_head').click(function(){
-    //       $('.msg_wrap').slideToggle('slow');
-    //     });
-        
-    //     $('.close').click(function(){
-    //       $('.msg_box').hide();
-    //     });
-        
-    //     $('.user').click(function(){
-
-    //       $('.msg_wrap').show();
-    //       $('.msg_box').show();
-    //     });
-      
+    <!--
     //     $('textarea').keypress(
     //       function(e){
     //           if (e.keyCode == 13) {
