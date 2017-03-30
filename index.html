@@ -116,6 +116,10 @@
       #credits{
         margin-top: 15%
       }
+      .headImg{
+        width:30px;
+        height:30px;
+      }
     </style>
 
     <meta charset="utf-8">
@@ -231,9 +235,17 @@
     <div class="chat_box" id="mychatbox">
       <div class="chat_head">在線名單</div>
       <div class="chat_body"> 
-        <div class="user">
-          游上葦 </br>
-          林冠銘 </br>
+        <div class ="user-list">
+            <div class="user">游上葦</div>
+            <div class="user">林冠銘</div>
+            <div class="user">藍啟文</div>
+            <div class="user">柯子惟</div>
+            <div class="user">Powei Hsiao</div>
+            <div class="user">Reggie Chen</div>
+            <div class="user">林志洋</div>
+            <div class="user">呂駿杰</div>
+            <div class="user">楊景棠</div>
+            <div class="user">鄭為</div>
         </div>
       </div>
     </div>
@@ -242,6 +254,7 @@
       <div class="msg_head">聊天室</div>
       <div class="msg_wrap">
         <div class="msg_body">
+          <!-- <div img="/chatJsFile/clock.png" class="headImg"></div>  -->
           <div class="msg_a">This is from A </div>
           <div class="msg_b">This is from B, and its amazingly kool nah... i know it even i liked it :)</div>
           <div class="msg_a">Wow, Thats great to hear from you man </div> 
@@ -689,7 +702,6 @@
                     $('.msg_body').scrollTop($('.msg_body')[0].scrollHeight);
                 }
             }
-
         });
 
         String.prototype.replaceAll = function (find, replace) {
@@ -700,22 +712,7 @@
             } while (split.length > 1);
             return result;
         };
-
     </script>  
-
-    <!--
-    //     $('textarea').keypress(
-    //       function(e){
-    //           if (e.keyCode == 13) {
-    //               e.preventDefault();
-    //               var msg = $(this).val();
-    //         $(this).val('');
-    //         if(msg!='')
-    //         $('<div class="msg_b">'+msg+'</div>').insertBefore('.msg_push');
-    //         $('.msg_body').scrollTop($('.msg_body')[0].scrollHeight);
-    //           }
-    //       });
-     });  -->
 
     <script src="js/jquery.js">
     </script>

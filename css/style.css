@@ -3,7 +3,7 @@
 	position:fixed;
 	right:0px;
 	bottom:0px;
-	width:150px;
+	width:160px;
   z-index: 100;
   display: none;
 }
@@ -11,11 +11,13 @@
 	background:white;
 	height:0px;
 	padding:0px 0px;
+  overflow:auto;
+  overflow-x: hidden;
 }
 
 .chat_head,.msg_head{
-	background:#f39c12;
-  /*background: #B45F04;*/
+	/*background:#f39c12;*/
+  background: #FE9A2E;
 	color:white;
 	padding:10px;
 	font-weight:bold;
@@ -30,7 +32,7 @@
 	background:white;
 	border-radius:5px 5px 0px 0px;
   z-index: 100;
-  right:160px;
+  right:170px;
   display: none;
 }
 
@@ -81,7 +83,6 @@
 .user:hover{
 	background:#f8f8f8;
 	cursor:pointer;
-
 }
 .user:before{  /* 綠燈 */
 	content:'';
@@ -100,7 +101,8 @@
 	padding:10px;
 	min-height:10px;
 	margin-bottom:5px;
-	margin-right:10px;
+	margin-right:20px;
+  margin-left:40px; /* head */
 	border-radius:5px;
 }
 .msg_a:before{
@@ -114,14 +116,13 @@
 	top:7px;
 }
 
-
 .msg_b{
 	background:#EEF2E7;
 	padding:10px;
 	min-height:15px;
 	margin-bottom:5px;
 	position:relative;
-	margin-left:10px;
+	margin-left:15px;
 	border-radius:5px;
 	word-wrap: break-word;
 }
