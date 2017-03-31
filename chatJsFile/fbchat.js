@@ -33,6 +33,8 @@ $(function(){
     var $chatphone = $('#chatphone');
     var oldscrolltop = 0 ;
 
+    var ;
+
     $('#fbLogin').click(function(e){
         e.preventDefault();
         Login();

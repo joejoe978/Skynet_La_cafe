@@ -14,7 +14,7 @@ var io              =       require('socket.io').listen(server);
 var nicknames = [];
 var collection ;
  
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 5000;
 server.listen(port,function(){
     console.log("Working on port"); 
 });
