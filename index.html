@@ -235,17 +235,10 @@
     <div class="chat_box" id="mychatbox">
       <div class="chat_head">在線名單</div>
       <div class="chat_body"> 
-        <div class ="user-list">
+        <div class ="user-list" id="users">
             <div class="user">游上葦</div>
             <div class="user">林冠銘</div>
-            <div class="user">藍啟文</div>
-            <div class="user">柯子惟</div>
             <div class="user">Powei Hsiao</div>
-            <div class="user">Reggie Chen</div>
-            <div class="user">林志洋</div>
-            <div class="user">呂駿杰</div>
-            <div class="user">楊景棠</div>
-            <div class="user">鄭為</div>
         </div>
       </div>
     </div>
@@ -253,12 +246,11 @@
     <div class="msg_box" id="mymsgbox">
       <div class="msg_head">聊天室</div>
       <div class="msg_wrap">
-        <div class="msg_body">
-          <!-- <div img="/chatJsFile/clock.png" class="headImg"></div>   -->
+        <div class="msg_body" id="chat">
           <div class="msg_a">天網是一個可在電腦或手機操作的網站，是您約會不可獲缺的好夥伴，更是您聯絡感情的好幫手</div>
           <div class="msg_b">好的</div>
           <div class="msg_a">開戰！！</div> 
-          <div class="msg_push"></div>
+          <!-- <div class="msg_push"></div> -->
         </div>
         <div class="msg_footer">
           <textarea id="myInput" class="msg_input" cols="0" rows="0"></textarea>
@@ -373,8 +365,10 @@
                     var deletePlaceName = [] ; // store delete markers
                     var allPeopleLoc = [], forceAwaken = 0; // use for the Force
 
+                    var chatPeoples = [], chatIDs =[];
+
                     var myInterval = setInterval(function updateLocation(){
-                        console.log("Not login yet, waiting...");
+                        //console.log("Not login yet, waiting...");
                         if(isLogin == 1){
                             $("#doorModal").modal('show');
                             clearInterval(myInterval);
@@ -388,22 +382,7 @@
                             setInterval(function(){
                                 updateAll();
                                 updatePlace();
-                                //updateDelete();
-                                // 捲軸問題
-                                 // var a = document.createElement('a');
-                                 // a.href = '#';
-                                 // var userImgUrl = 'https://graph.facebook.com/' + 100000308469892 + '/picture?width=75&height=75';
-                                 // var img = document.createElement('img'); img.src = userImgUrl; img.className = 'img-circle';
-                                 // a.appendChild(img);
-                                 // document.getElementById("fbImg").appendChild(a);
-
-                                 // a = document.createElement('a');
-                                 // a.href = '#';
-                                 // userImgUrl = 'https://graph.facebook.com/' + 100000205309181 + '/picture?width=75&height=75';
-                                 // img = document.createElement('img'); img.src = userImgUrl; img.className = 'img-circle';
-                                 // a.appendChild(img);
-                                 // document.getElementById("fbImg").appendChild(a);
-
+                              
                             }, 3 * 1000);
                           }
                     }, 1 * 1000);
@@ -564,9 +543,13 @@
             <div class="modal-content" style="margin-top:40px; width:120%; margin-left:-10%;"  >
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" id="modalTitle" style="text-align:center;">歡迎來到天網！&nbsp;&nbsp;&nbsp;&nbsp; </br> 請先登入FB使用原力！&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-danger" id="fbLogin2" >登入FB</a> </h4>
+                <h4 class="modal-title" id="modalTitle" style="text-align:center; margin-top: 10px;"> 
+                 &nbsp&nbsp&nbsp&nbsp 請先登入FB哦！</h4>
+                <div class="btn btn-danger" id="fbLogin2" style="position:relative; left:45%; margin-top: 10px;">
+                  登入FB
+                </div> 
               </div>
-                <img id="opening" src="chatJsFile/kyloren4.jpg" style="width:100%; height:100%"></img>
+              <img id="opening" src="chatJsFile/kyloren4.jpg" style="width:100%; height:100%"></img>
             </div>
           </div>
     </div>
@@ -609,37 +592,6 @@
       </div>
     </div>
 
-    <!-- jQuery -->
-    <script >
-        // $(window).load(function(){
-        //     $('#openSkyModal').modal('show');
-        //     $('#openSkyModal').on('show.bs.modal', function () {
-        //         $('.modal-content').css('width',$( window ).width()*0.8);
-        //     });
-        // });
-    </script>
-
-    <script>
-        $(function () {
-            var open = 0;
-            $('#chatclick').click(function (event) {
-                event.preventDefault();
-                if(open == 0){
-                    $("#usersList").toggleClass('hidden show');
-                    $("#topChat2").toggleClass('hidden show');
-                    $("#chatphone").animate({height: "380px"});
-                    open = 1;
-                }
-                else{
-                    $("#topChat2").toggleClass('hidden show');
-                    $("#usersList").toggleClass('hidden show');    
-                    $("#chatphone").animate({height: "0px"});
-                    open = 0;
-                }
-            });
-        });
-    </script>
-
     <!-- chatbox script -->
     <script>
         var first = 0; online = 0;
@@ -660,9 +612,9 @@
                     first = 2;
                 }
                 else{           
-                    $('.msg_box').animate({margin:"0px 100px"}, 500).show();              
+                    $('.msg_box').animate({margin:"0px 100px"}, 500).show();             
                     $('.msg_head').animate({width:"250px"}, 500).show();
-                    $('.msg_body').animate({height:"250px", width:"250px;"}, 500).show(); 
+                    $('.msg_body').animate({height:"250px", width:"250px;"}, 500).show();
                     $('.msg_wrap').animate({height: "280px", width:"250px"}, 500).show();
                     first = 1;
                 }
@@ -685,33 +637,6 @@
                 }
             }
         });
-
-        $('#myInput').keypress(function(e){
-            if (e.keyCode == 13 && e.shiftKey){
-                e.preventDefault(); 
-                var msg = $(this).val() + '\n';
-                $(this).val(msg);
-            }
-            else if (e.keyCode == 13) {
-                e.preventDefault();
-                var msg = $(this).val();
-                msg = msg.replaceAll('\n', '<br>');
-                $(this).val('');
-                if(msg){
-                    $('<div class="msg_b">'+msg+'</div>').insertBefore('.msg_push');
-                    $('.msg_body').scrollTop($('.msg_body')[0].scrollHeight);
-                }
-            }
-        });
-
-        String.prototype.replaceAll = function (find, replace) {
-            var result = this;
-            do {
-                var split = result.split(find);
-                result = split.join(replace);
-            } while (split.length > 1);
-            return result;
-        };
     </script>  
 
     <script src="js/jquery.js">

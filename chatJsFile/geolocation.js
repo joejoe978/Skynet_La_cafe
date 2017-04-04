@@ -567,8 +567,8 @@ function turnLatLng(x){
 function createPlace(){
     mapListener = map.addListener('click', function(event) {
       if(fbName == null){
-          console.log("you are not login! ");
-          alert("您尚未登入facebook！ 請先登入！");
+          // alert("您尚未登入facebook！ 請先登入！");
+          $("#openSkyModal").modal();
       }
       else{
           document.getElementById("placeName").value='';   

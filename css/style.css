@@ -107,8 +107,8 @@
 	border-radius:5px;
 }
 
-.msg_a:before{
-	/*background-image: url('http://graph.facebook.com/984618548258644/picture/?type=square');*/
+/*.msg_a:before{
+	background-image: url('http://graph.facebook.com/984618548258644/picture/?type=square');
   background-size:30px 30px;
   display:inline-block;
   content:"";
@@ -117,7 +117,7 @@
   height: 30px;
   margin-left: -50px;
   margin-top: -8px;
-}
+}*/
 
 /*.msg_a:before{
   content:"";

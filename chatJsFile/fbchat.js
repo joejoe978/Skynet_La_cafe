@@ -1,14 +1,9 @@
 
 //<!--fb login to chatroom -->
 
-var imgurl; var fbName; var isLogin = 0; var myfbID;
-var colorTable = []; var colorPeople = [];
-
-colorTable[0] = 'orangered'; colorTable[1] = 'blue';
-colorTable[2] = 'crimson'; colorTable[3] = 'darkblue';
-colorTable[4] = 'darkviolet'; colorTable[5] = 'forestgreen';
-colorTable[6] = 'violet'; colorTable[7] = 'SpringGreen';
-colorTable[8] = 'saddlebrown'; colorTable[9] = 'slategrey';
+var imgurl; var fbName; var isLogin = 0; var myfbID; 
+// var colorTable = []; var colorPeople = [];
+var fbUsers = []; fbImgID = [];
 
 window.fbAsyncInit = function() {
     FB.init({
@@ -25,15 +20,24 @@ window.fbAsyncInit = function() {
 
 $(function(){
     var socket = io.connect();
-    var $frmMessage = $('#send-message');
-    var $frmMessagephone = $('#send-messagephone');
-    var $boxMessage = $('#message');
-    var $boxMessagephone = $('#messagephone');
-    var $chat = $('#chat');
-    var $chatphone = $('#chatphone');
     var oldscrolltop = 0 ;
+    var $chat = $('#chat');
 
-    var ;
+    // first time in web, get all member's list
+    socket.emit('first time', 1);
+
+    socket.on('Update chat members', function(data){
+        
+        document.getElementById("users").innerHTML = " " ;
+        for(var d = 0; d < data.length; d++) {
+            var thisname = data[d];
+            fbUsers[d] = data[d];
+        }
+        var newNode = document.createElement('div');
+        newNode.className = 'user';
+        newNode.innerHTML = thisname;
+        document.getElementById('users').appendChild(newNode); 
+    });
 
     $('#fbLogin').click(function(e){
         e.preventDefault();
@@ -54,6 +58,38 @@ $(function(){
         Logout();
         //socket.emit('new user', $nickBox.val() );
     });
+
+
+    // New chatbox function ****************************************************
+    $('#myInput').keypress(function(e){
+        if (e.keyCode == 13 && e.shiftKey){
+            e.preventDefault(); 
+            var msg = $(this).val() + '\n';
+            $(this).val(msg);
+        }
+        else if (e.keyCode == 13) {
+            e.preventDefault();
+            var msg = $(this).val();
+            msg = msg.replaceAll('\n', '<br>');
+            $(this).val('');
+            if(msg){
+                // $('<div class="msg_b">'+msg+'</div>').insertBefore('.msg_push');
+                // $('.msg_body').scrollTop($('.msg_body')[0].scrollHeight);
+                socket.emit('send message', msg);  // socket send
+            }
+        }
+    });
+
+    String.prototype.replaceAll = function (find, replace) {
+        var result = this;
+        do {
+            var split = result.split(find);
+            result = split.join(replace);
+        } while (split.length > 1);
+        return result;
+    };
+
+    // ****************************************************************************
 
     function statusChangeCallback(response) {
         console.log(response);
@@ -98,7 +134,14 @@ $(function(){
             document.getElementById("topImg").appendChild(img);
             document.getElementById("fbLogin").remove();
 
-            socket.emit('new user', response.name);
+            // Add all users name and ID ******************************************************
+            var userNameID = [2];
+            userNameID[0] = response.name;
+            userNameID[1] = response.id;
+            socket.emit('new user', userNameID);
+
+            // ********************************************************************************
+
             getPlaceNo(); // update placeNo
             isLogin = 1;
 
@@ -177,24 +220,7 @@ $(function(){
         x = hours + ':' + min ;
         return x ;
     }
-
-    $frmMessage.submit(function(e){
-        e.preventDefault();
-        if($boxMessage.val() != ''){
-            socket.emit('send message', $boxMessage.val().trim());
-            $boxMessage.val('');
-            $chat.animate({scrollTop: chat.scrollHeight});
-        }
-    });
-    // phonemessage
-    $frmMessagephone.submit(function(e){
-        e.preventDefault();
-        if($boxMessagephone.val() != ''){
-            socket.emit('send message', $boxMessagephone.val().trim());
-            $boxMessagephone.val('');
-            $chatphone.animate({scrollTop: chatphone.scrollHeight});
-        }
-    });
+ 
     function chatClick(name){
         //console.log(name);
         var chatmarker, chatLoc = [];
@@ -228,91 +254,89 @@ $(function(){
     }
 
     socket.on('usernames', function(data){
-
-        var sb = '', usercolor = 'blue';
-
         document.getElementById("users").innerHTML = " " ;
-        document.getElementById("usersphone").innerHTML = " " ;
 
         for(var d = 0; d < data.length; d++) {
             var thisname = data[d];
-            // get user color
-            if(isInArray(thisname, colorPeople)){
-                var x = colorPeople.indexOf(thisname);
-                usercolor = colorTable[x%10];
-            }
-            else{
-                colorPeople.push(thisname);
-                var x = colorPeople.indexOf(thisname);
-                usercolor = colorTable[x%10];
-            }
-            // append chat users
-            var a = document.createElement('a'); 
-            a.style.color=usercolor;
-            a.appendChild(document.createTextNode(thisname));
-            a.appendChild(document.createElement('br'));
+            fbUsers[d] = data[d];
 
-            var a2 = document.createElement('a'); 
-            a2.style.color=usercolor;
-            a2.appendChild(document.createTextNode(thisname));
-            a2.appendChild(document.createTextNode(' '));
-            // a.addEventListener('click', function(){
-            //     var name = $(this).text();
-            //     console.log("click chatroome: " + name);
-            //     chatClick(name);
-            // });
-
-            document.getElementById("users").appendChild(a);
-            document.getElementById("usersphone").appendChild(a2);
+            // New append chat users *********************************************************
+            var newNode = document.createElement('div');
+            newNode.className = 'user';
+            newNode.innerHTML = thisname;
+            document.getElementById('users').appendChild(newNode); 
+            // *******************************************************************************
         }
     });
 
-    socket.on('chat', function(server,msg){
+    // Update IDs *************************************************
+    socket.on('userIDs', function(data){
+        for(var d = 0; d < data.length; d++) {
+            fbImgID[d] = data[d];
+            console.log("fb ID:" + fbImgID[d]);
+        }
+    });
+    // ************************************************************
+
+    socket.on('chat', function(server,msg){   // XXX已連線
         var now = new Date();
         var datetime = getNow(now);
+        
+        // New msgbox ****************************************************************************
         oldscroll = chat.scrollHeight;
-        oldscroll2 = chatphone.scrollHeight;
-        $chat.append("<b><i>" + " 系統訊息 (" + datetime + ") : </b> " + msg + "  </i><br />");
-        $chatphone.append("<b><i>" + " 系統訊息 (" + datetime + ") : </b> " + msg + "  </i><br />");
 
+        var newNode = document.createElement('b');
+        newNode.innerHTML = '<br>' + datetime + ' ' + msg + '<br><br>' ;
+        document.getElementById('chat').appendChild(newNode); 
+    
         if(chat.scrollHeight - chat.clientHeight > 0){  //表示超出視窗
             if(chat.scrollTop + chat.clientHeight == oldscroll){  //表示捲軸已在最下面 讓捲軸自己動
                 $chat.animate({scrollTop: chat.scrollHeight});
             }
         }
-        if(chatphone.scrollHeight - chatphone.clientHeight > 0){  //表示超出視窗
-            if(chatphone.scrollTop + chatphone.clientHeight == oldscroll2){  //表示捲軸已在最下面 讓捲軸自己動
-                $chatphone.animate({scrollTop: chatphone.scrollHeight});
-            }
-        }
+        // ****************************************************************************************
     });
-
+    
     socket.on('new message', function(data){
-        var msg = data.msg; var name = data.nick; var flag = 0, usercolor = 'blue';
-        //<b style="color:forestgreen;"> name </b>
-        if(isInArray(name, colorPeople)){
-            var x = colorPeople.indexOf(name);
-            usercolor = colorTable[x%10];
-        }
-        else{
-            colorPeople.push(name);
-            var x = colorPeople.indexOf(name);
-            usercolor = colorTable[x%10];
-        }
-
+        var msg = data.msg; var name = data.nick; var flag = 0;
+        
+        // New msgbox ****************************************************************************
         oldscroll = chat.scrollHeight;
-        oldscroll2 = chatphone.scrollHeight;
-        $chat.append("<b style='color:" + usercolor + ";'>" + name + "</b> : " + msg + "<br />");
-        $chatphone.append("<b style='color:" + usercolor + ";'>" + name + "</b> : " + msg + "<br />");
+
+        if(name == null){
+            // please log in.
+            $("#openSkyModal").modal();
+        }
+        else if(name == fbName){
+            var newNode = document.createElement('div');
+            newNode.className = 'msg_b';
+            newNode.innerHTML = msg;
+            document.getElementById('chat').appendChild(newNode);     
+            $chat.animate({scrollTop: chat.scrollHeight});
+        }
+        else if(name != fbName){ 
+            // add msg_a:before
+            var userID;
+
+            for(var i=0;i<fbUsers.length;i++){
+                if(fbUsers[i] == name){
+                    userID = fbImgID[i];
+                }
+            }
+
+            var newNode = document.createElement('div');
+            newNode.className = 'msg_a';
+            newNode.innerHTML = msg;
+            document.getElementById('chat').appendChild(newNode);
+
+            // $chat.append('<style>.msg_a::before{background-image:url('+url+')}</style>');  最好的解
+        }
+        
         if(chat.scrollHeight - chat.clientHeight > 0){  //表示超出視窗
             if(chat.scrollTop + chat.clientHeight == oldscroll){  //表示捲軸已在最下面 讓捲軸自己動
                 $chat.animate({scrollTop: chat.scrollHeight});
             }
         }
-        if(chatphone.scrollHeight - chatphone.clientHeight > 0){  //表示超出視窗
-            if(chatphone.scrollTop + chatphone.clientHeight == oldscroll2){  //表示捲軸已在最下面 讓捲軸自己動
-                $chatphone.animate({scrollTop: chatphone.scrollHeight});
-            }
-        }
+        // ****************************************************************************************
     });
 });

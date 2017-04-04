@@ -12,6 +12,8 @@ var app             =       express();
 var server          =       http.createServer(app);
 var io              =       require('socket.io').listen(server);
 var nicknames = [];
+var nickIDs = [];
+
 var collection ;
  
 var port = process.env.PORT || 5000;
@@ -172,33 +174,42 @@ MongoClient.connect(database, function (err, db) {
              });
         });
 
+        // first time, get all chat room members.
+        socket.on('first time', function(data){     // data[0]=name, data[1]=ID
+            if(nicknames.length != 0)
+                io.sockets.emit('Update chat members', nicknames);
+        });
 
         // chat room 
-        socket.on('new user', function(data){
+        socket.on('new user', function(data){     // data[0]=name, data[1]=ID
           if (nicknames.indexOf(data) != -1) {
 
           } else {
-            socket.emit('chat', 'SERVER', '歡迎光臨 ' + data);
-            socket.broadcast.emit('chat', 'SERVER', data + '已連線');
+            socket.emit('chat', 'SERVER', '歡迎光臨 ' + data[0]);
+            socket.broadcast.emit('chat', 'SERVER', data[0] + ' 已上線');
             
-            socket.nickname = data;
+            socket.nickname = data[0];
             nicknames.push(socket.nickname);
+            nickIDs.push(data[1]);
             io.sockets.emit('usernames', nicknames);
+            io.sockets.emit('userIDs', nickIDs);   // new Socket item
           }
         });
 
         socket.on('send message', function(data){
-          if(socket.nickname == null){
-            socket.nickname = '訪客';
-          }
-          io.sockets.emit('new message', { msg: data, nick: socket.nickname });
+          //if(socket.nickname != null){
+            io.sockets.emit('new message', { msg: data, nick: socket.nickname });  
+          //}
         });
 
         socket.on('disconnect', function(data){
           if (!socket.nickname) return;
           io.sockets.emit('chat', 'SERVER', socket.nickname + ' 已離線');
+          var position = nicknames.indexOf(socket.nickname);
           nicknames.splice(nicknames.indexOf(socket.nickname), 1);
+          nickIDs.splice(position, 1);                  // new Socket item
           io.sockets.emit('usernames', nicknames);
+          io.sockets.emit('userIDs', nickIDs);          // new Socket item
         });
       }); //socket finish
   }

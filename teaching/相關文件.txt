@@ -7,6 +7,7 @@ http://www.templatemo.com/
 https://buzzorange.com/techorange/2015/05/28/design/
 https://www.sanwebe.com/2013/10/css-html-form-styles
 
+
 B. 後端: nodejs 
 nodejs 好用的教學網站：
 https://www.slideshare.net/xdxie/nodejs-15251110 
@@ -17,7 +18,11 @@ node.js 啟動必需品： json檔, node_modules, server.js
 
 1) json檔複製我的就好, server.js就是你要寫的伺服器檔案
 2) node_module要下指令來安裝 
+
+npm list 
+
 指令舉例: 如果要安裝http這個套件 就下:
+
 npm install http 
 3) 該準備的都完成之後, 下 node server.js 即可啟動伺服器
 4) 開啟chrome, 網址輸入 localhost:5000 即可跑出網頁, 輸入 ctrl+c 即可終止
