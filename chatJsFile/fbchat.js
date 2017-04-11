@@ -289,6 +289,8 @@ $(function(){
         newNode.innerHTML = '<br>' + datetime + ' ' + msg + '<br><br>' ;
         document.getElementById('chat').appendChild(newNode); 
     
+        // add image
+
         if(chat.scrollHeight - chat.clientHeight > 0){  //表示超出視窗
             if(chat.scrollTop + chat.clientHeight == oldscroll){  //表示捲軸已在最下面 讓捲軸自己動
                 $chat.animate({scrollTop: chat.scrollHeight});
