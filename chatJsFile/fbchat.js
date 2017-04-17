@@ -332,7 +332,8 @@ $(function(){
             var div1 = document.createElement('div');
             div1.className = 'fb-icon';
             var img = document.createElement('img');
-            img.src = imgurl; img.className = 'img-circle';
+            var imglink = imgurl = 'https://graph.facebook.com/' + userID + '/picture/?type=square';
+            img.src = imglink; img.className = 'img-circle';
             var div2 = document.createElement('div');
             div2.className = 'msg_other'; div2.innerHTML = msg;
             li.appendChild(div1); li.appendChild(div2);
