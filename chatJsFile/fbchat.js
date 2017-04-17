@@ -311,7 +311,7 @@ $(function(){
         }
         else if(name == fbName){
             var newNode = document.createElement('div');
-            newNode.className = 'msg_b';
+            newNode.className = 'msg_me';
             newNode.innerHTML = msg;
             document.getElementById('chat').appendChild(newNode);     
             $chat.animate({scrollTop: chat.scrollHeight});
@@ -326,12 +326,18 @@ $(function(){
                 }
             }
 
-            var newNode = document.createElement('div');
-            newNode.className = 'msg_a';
-            newNode.innerHTML = msg;
-            document.getElementById('chat').appendChild(newNode);
-
-            // $chat.append('<style>.msg_a::before{background-image:url('+url+')}</style>');  最好的解
+            var ol = document.createElement('ol');
+            ol.className = 'chat-box'; 
+            var li = document.createElement('li');
+            var div1 = document.createElement('div');
+            div1.className = 'fb-icon';
+            var img = document.createElement('img');
+            img.src = imgurl; img.className = 'img-circle';
+            var div2 = document.createElement('div');
+            div2.className = 'msg_other'; div2.innerHTML = msg;
+            li.appendChild(div1); li.appendChild(div2);
+            ol.appendChild(li);
+            document.getElementById('chat').appendChild(ol);
         }
         
         if(chat.scrollHeight - chat.clientHeight > 0){  //表示超出視窗

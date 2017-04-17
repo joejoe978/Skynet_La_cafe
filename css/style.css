@@ -96,7 +96,7 @@
 }
 
 /* 其他使用者 */
-.msg_a{   
+/*.msg_a{   
 	position:relative;
 	background:#FDE4CE;
 	padding:10px;
@@ -105,7 +105,7 @@
 	margin-right:20px;
   margin-left:40px; 
 	border-radius:5px;
-}
+}*/
 
 /*.msg_a:before{
 	background-image: url('http://graph.facebook.com/984618548258644/picture/?type=square');
@@ -130,24 +130,116 @@
   top:7px;
 }*/
 
+/**************  chat box ***************/
+.chat-box {
+  list-style: none;
+  /*background: #e5e5e5;*/
+  margin: 0;
+  /*padding: 0 15px 8px 0;*/
+  padding: 0 0px 0px 0;
+  margin-left: -3px;
+  /*height: 280px;*/
+  overflow-y: auto;
+}
+.chat-box li {
+  padding: 0.5rem;
+  overflow: hidden;
+  display: flex;
+}
+.fb-icon {
+  width: 40px;
+  position: relative;
+}
+.fb-icon img {
+  display: block;
+  width: 30px;
+  background-color:#1469A6;
+  margin-right: 17px;
+  white-space: nowrap;
+  float: none;
+}
+/*.me {
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.me .messages {
+  order: 1;
+  border-bottom-right-radius: 0;
+}*/
+.fb-icon {
+  left: -5px;
+}
+.fb-icon:after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 18px;
+  right: 0;
+  width: 0;
+  height: 0;
+  border: 16px solid #FDE4CE;
+  /*border-left-color: transparent;
+  border-bottom-color: transparent;*/
+  border-color: transparent #FDE4CE transparent transparent;
+}
+.msg_other {
+  background:#FDE4CE;
+  padding: 10px;
+  min-height: 15px;
+  margin-left:-6px;
+  /*margin-right: 30px;*/
+  margin-bottom: 3px;
+  border-radius: 5px; /*2*/
+  word-wrap: break-word;
+  max-width: 165px;
+  position: relative;
+}
+
 /* 自己 */
-.msg_b{
-	background:#EEF2E7;
-	padding:10px;
-	min-height:15px;
-	margin-bottom:5px;
-	position:relative;
-	margin-left:55px;
-	border-radius:5px;
-	word-wrap: break-word;
+.msg_me{
+  background:#EEF2E7;
+  padding:10px;
+  min-height:15px;
+  margin-top:3px;
+  margin-bottom:5px;
+  position:relative;
+  margin-left:55px;
+  border-radius:5px;
+  word-wrap: break-word;
 }
-.msg_b:after{
-	content:"";
-	position:absolute;
-	width:0px;
-	height:0px;
-	border: 10px solid;
-	border-color: transparent transparent transparent #EEF2E7;
-	right:-20px;
-	top:7px;
+.msg_me:after{
+  content:"";
+  position:absolute;
+  width:0px;
+  height:0px;
+  border: 6px solid;
+  border-color: transparent transparent transparent #EEF2E7;
+  right:-12px;
+  top:9px;
 }
+
+/*
+.messages_me{
+  background:#EEF2E7;
+  padding: 10px;
+  min-height: 15px;
+  margin-left:auto;
+  margin-right: 0px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  word-wrap: break-word;
+  max-width: 160px;
+}
+.messages_me:after{
+  content:"";
+  position:relative;  
+  width:0px;
+  height:0px;
+  right:-141px;
+  left: 0px;
+  top:-10px;
+  border: 14px solid #EEF2E7;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  /*border-color: transparent transparent transparent #EEF2E7;
+}*/
