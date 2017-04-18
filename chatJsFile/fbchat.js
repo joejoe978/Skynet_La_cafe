@@ -334,7 +334,8 @@ $(function(){
             var img = document.createElement('img');
             var imglink = imgurl = 'https://graph.facebook.com/' + userID + '/picture/?type=square';
             img.src = imglink; img.className = 'img-circle';
-            var div2 = document.createElement('div');
+            div1.appendChild(img);
+	    var div2 = document.createElement('div');
             div2.className = 'msg_other'; div2.innerHTML = msg;
             li.appendChild(div1); li.appendChild(div2);
             ol.appendChild(li);

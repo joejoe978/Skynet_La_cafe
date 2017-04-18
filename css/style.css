@@ -149,6 +149,7 @@
 .fb-icon {
   width: 40px;
   position: relative;
+  left: -5px;
 }
 .fb-icon img {
   display: block;
@@ -158,21 +159,10 @@
   white-space: nowrap;
   float: none;
 }
-/*.me {
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-.me .messages {
-  order: 1;
-  border-bottom-right-radius: 0;
-}*/
-.fb-icon {
-  left: -5px;
-}
 .fb-icon:after {
   content: '';
   position: absolute;
-  top: 5px;
+  top: 3px;
   left: 18px;
   right: 0;
   width: 0;
@@ -188,7 +178,7 @@
   min-height: 15px;
   margin-left:-6px;
   /*margin-right: 30px;*/
-  margin-bottom: 3px;
+  margin-bottom: 0px;
   border-radius: 5px; /*2*/
   word-wrap: break-word;
   max-width: 165px;
