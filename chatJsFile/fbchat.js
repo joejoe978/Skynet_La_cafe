@@ -110,7 +110,7 @@ $(function(){
             console.log(JSON.stringify(response));
             fbName = response.name;
             myfbID = response.id;
-            imgurl = 'http://graph.facebook.com/' + response.id + '/picture?width=75&height=75';
+            imgurl = 'https://graph.facebook.com/' + response.id + '/picture?width=75&height=75';
 
             // create your image at top row
             var a = document.createElement('a'); a.id = response.name; a.href = '#map';
@@ -125,7 +125,7 @@ $(function(){
             left.appendChild(document.createTextNode(' '));
 
             // create name at navbar
-            imgurl = 'http://graph.facebook.com/' + response.id + '/picture/?type=square';
+            imgurl = 'https://graph.facebook.com/' + response.id + '/picture/?type=square';
 
             var a = document.createElement('a');
             a.appendChild(document.createTextNode(response.name));
